@@ -1,0 +1,20 @@
+<form method="POST" >
+    {% csrf_token %}
+    {{ form }}
+    {% comment %} <label for="nombre">Elemento</label>
+    <input type="text" id="nombre" name="nombre">
+    <label for="categoria">Categoria</label>
+    <input type="text" id="categoria" name="categoria">
+    <label for="serial">Serial:</label>
+    <input type="text" id="serial" name="serial">
+    <label for="cantidad_total">Cantidad:</label>
+    <input type="number" id="cantidad_tota    l" name="cantidad_total">
+    <label for="valor">Valor unitario:</label>
+    <input type="text" id="valor" name="valor">
+    <label for="descripcion_elemento">Descripción:</label>
+    <textarea id="descripcion_elemento" name="descripcion_elemento" rows="5" placeholder="Escribe una descripción"></textarea> {% endcomment %}
+    <div class="botones-container">
+        <button class="btn-guardar" id="btn-no-guardar-crear" type="button">Cancelar</button>
+        <button class="btn-no-guardar" id="btn-guardar-crear" type="submit">Guardar</button>
+    </div>
+</form>

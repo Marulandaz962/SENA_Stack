@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Modal Ejemplo</title>
+</head>
+<body>
+  <button id="show-modal-btn">Finalizar prestamo</button>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="close-modal">&times;</span>
+      <p>Finalizar Prestamo.</p><br>
+      <hr><br>
+      <label for="username">Responsable:</label>
+      <input type="text" id="username" name="username"><br>
+      <label for="tipo-documento">Estado</label>
+      <select id="tipo-documento" name="tipo-documento">
+        <option value="C.C.">En prestamo</option>
+        <option value="P.E.P.">Soporte</option>
+        <option value="Garantia">Garantia</option><br>
+        <option value="baja">Baja</option>
+        <option value="Disponible">Disponible</option><br>
+      </select><br>
+      <label for="documento">Elemento:</label>
+      <input type="text" id="documento" name="documento"><br>
+      <!-- <label for="phone">Telefono movil:</label> -->
+      <!-- <input type="text" id="phone" name="phone"><br> -->
+      <!-- <label for="phone2">Estado</label> -->
+      <!-- <input type="text" id="phone2" name="phone2"><br> -->
+      <!-- <label for="email_sena">estado:</label> -->
+      <!-- <input type="email" id="email_sena" name="email_sena"><br> -->
+      <!-- <label for="email_misena">Correo misena:</label> -->
+      <!-- <input type="email" id="email_misena" name="email_misena"><br> -->
+      <label for="descripcion">Descripción:</label><br>
+      <textarea id="descripcions" name="descripcion" rows="5" placeholder="Escribe una descripción"></textarea> 
+      <!-- <label for="tipo-contrato">Tipo de contratro:</label> -->
+      <!-- <select id="tipo-contrato" name="tipo-contrato"> -->
+      <!-- <option value="planta">Instructor de planta</option> -->
+      <!-- <option value="contratista">Instructor contratista         -->
+      </select><br>
+      <!-- <label for="fecha_inicio_contrato">Fecha de inicio :</label> -->
+      <!-- <input type="date" id="fecha_inicio_contrato" name="fecha_inicio_contrato"><br> -->
+      <!-- <label for="fecha_fin_contrato">Fecha fin:</label> -->
+      <!-- <input type="date" id="fecha_fin_contrato" name="fecha_fin_contrato"><br>       -->
+      <!-- <div class="botones-container">   -->
+      <button class="btn-guardar" id="btn-no-guardar">Cancelar</button>
+      <button class="btn-no-guardar" id="btn-guardar">Guardar</button>
+    </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

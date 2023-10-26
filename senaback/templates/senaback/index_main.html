@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block tittle %} {% endblock %}</title>
+    <!-- Styles -->
+    <link href="{% static 'senaback/css/estilo2.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {% block css %}
+        
+    {% endblock css %}
+
+</head>
+<body>
+    <header id="main-header">
+        <div class="horizontal">
+            <div class="logo">
+                <img src="img/logo-sena.svg" alt="">
+            </div>
+            <div class="info-centro">
+                <a href="{% url 'index' %}">  <h1>Sistema de Gestión de Inventario</h1> </a>
+            </div>
+            <div id="sesion">
+                <a href="{% url "login" %}">
+                    <div id="cerrar-sesion-img">
+                        <img src="{% static 'senaback/img/cerrar-sesion.svg' %}" alt="">
+                    </div>
+                    <p>Cerrar Sesión</p>
+                </a>
+            </div>
+        </div>
+    </header>
+    <nav id="botones-nav">
+        <ul>
+            <li><div class="icono"><img src="{% static 'senaback/img/inventarios.svg' %}"></div><a href="#">Inventarios</a>
+                <ul>
+                    {% comment %} <li><a href="#">Crear elementos</a></li> {% endcomment %}
+                    <li><a href="{% url 'list_consumables' %}">Listar Elementos Consumibles</a>
+                    <li><a href="{% url 'Listar_devolutivos' %}">Listar Elementos Devolutivos</a></li>
+                    <!-- <li><a href="#">Listar usuario</a></li> -->
+                </ul>
+            </li>
+            {% comment %} <li><div class="icono"><img src="{% static 'senaback/img/consumible.svg' %}"></div><a href="#">Consumibles</a>
+                <ul>
+                    <li><a href="#">Crear elementos</a></li>
+                    <li><a href="#">Editar Consumible</a></li>
+                    <li><a href="#">Listar Consumibles</a></li>
+                </ul>
+            </li> {% endcomment %}
+            <li><div class="icono"><img src="{% static 'senaback/img/transacciones.svg' %}"></div><a href="#">Transacciones</a>
+                <ul>
+                    {% comment %} <li><a href="#">otorgar elemento</a></li>
+                    <li><a href="{% url "Listar_Entrega" %}">Listar entregas</a></li>
+                    <li><a href="{% url "Listar_Consumibles" %}">Listar entregas</a></li> {% endcomment %}
+                </ul>
+            </li>
+            <li><div class="icono"><img src="{% static 'senaback/img/opciones.svg' %}"></div><a href="#">Opciones</a>
+                <ul>
+                    <li><a href="#">Ver perfil</a></li>
+                    {% comment %} <li><a href="#">Editar perfil</a></li> {% endcomment %}
+                    <li><a href="{% url "login" %}">Cerrar Sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    {% block content %}
+    
+    
+    
+    {% endblock content %}
+    <footer id="main-footer">
+        <div class="horizontal">
+                <div class="logo">
+                    <img src="{% static 'senaback\img\logo-sena.svg' %}" alt="Logo del SENA">
+                </div>
+            <div id="footer-info">
+                <p>Centro de Diseño e Innovación Tecnológica Industrial - CDITI</p>
+                <p>Tel: (606) 313 5800</p>
+                <p>Desarrollado por SFWJ Team - Ficha 2503319</p>
+                <p>Copyright 2023</p>
+            </div>
+            <div id="redes-sociales">
+                <div>
+                    <h5>Redes Sociales</h5>
+                </div>
+                <div id="redes-sociales-cajon">
+                    <a href="https://web.facebook.com/senacditidosquebradas/" class="fa fa-facebook"></a>
+                    <a href="https://www.instagram.com/senadosquebradas/?hl=es" class="fa fa-instagram"></a>
+                    <a href="https://www.youtube.com/@senacditi3837" class="fa fa-youtube"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/v/dt/dt-1.13.6/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/datatables.min.js"></script>
+
+    
+</body>
+</html>

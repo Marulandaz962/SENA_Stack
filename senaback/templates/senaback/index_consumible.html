@@ -1,0 +1,116 @@
+{% extends "senaback/index_main.html" %}
+    {% load static %}
+    {% block css %}
+    <link href="{% static 'senaback/css/stylesmain4.css' %}" rel="stylesheet">
+    {% endblock css %}
+    {% block tittle %}Elementos consumibles {% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <!-- DataTable.js -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+</head>
+<body>
+{% block content %}
+<!-- Formulario de Crear Elemento Consumible-->
+<section id="formulario-crear-elemento" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="close-modal">&times;</span>
+        <h2>Crear elemento</h2>
+        <hr>
+        <form method="post" action="{% url 'crear_elemento_consumible' %}">
+            {% csrf_token %}
+            <label for="nombre">Elemento</label>
+            <input type="text" id="nombre" name="nombre">
+            <label for="categoria">Categoria</label>
+            <input type="text" id="categoria" name="categoria">
+            <label for="serial">Serial:</label>
+            <input type="text" id="serial" name="serial">
+            <label for="cantidad_total">Cantidad:</label>
+            <input type="number" id="cantidad_total" name="cantidad_total">
+            <label for="valor">Valor unitario:</label>
+            <input type="text" id="valor" name="valor">
+            <label for="descripcion_elemento">Descripción:</label>
+            <textarea id="descripcion_elemento" name="descripcion_elemento" rows="5" placeholder="Escribe una descripción"></textarea>
+            <div class="botones-container">
+                <button class="btn-guardar" id="btn-no-guardar-crear" type="button">Cancelar</button>
+                <button class="btn-no-guardar" id="btn-guardar-crear" type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Formulario para Editar Elemento Consumible -->
+<section id="formulario-editar-elemento" class="modal">
+    <div class="modal-content">
+        <h2>Editar elemento</h2>
+        <hr>
+        <form id='editConsumible'>
+            {% csrf_token %}
+            <label for="username">Elemento</label>
+            <input type="text" id="username" name="username">
+            <label for="categoria">Categoria</label>
+            <input type="text" id="categoria" name="categoria">
+            <label for="serial">Serial:</label>
+            <input type="text" id="serial" name="serial">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad">
+            <label for="valor">Valor unitario:</label>
+            <input type="text" id="valor" name="valor">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="5" placeholder="Escribe una descripción"></textarea>
+            <div class="botones-container">
+                <button class="btn-guardar" id="btn-no-guardar-editar">Cancelar</button>
+                <button type='submit' class="btn-no-guardar" id="btn-guardar-editar">Guardar</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<!-- Tabla de Elementos Consumibles -->
+    <div class="container mt-4">
+        <h1>Inventario de elementos consumibles</h1>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
+                <table id="datatables-consumibles" class="table table-striped">
+                    <caption>
+                        Inventario de Elementos Consumibles
+                    </caption>
+                    <thead class="thead-light">                        
+                            <th class="centered">Elemento</th>
+                            <th class="centered">Elemento</th>
+                            <th class="centered">Categoria</th>
+                            <th class="centered">Serial</th>
+                            <th class="centered">Cantidad</th>
+                            <th class="centered">Valor</th>
+                            <th class="centered">Descripcion</th>
+                            <th class="centered">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody_consumables">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>    
+    <section id="botones-seccion-crear">
+        <button id="abrir-modal">Crear Elemento</button>
+    </section> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- DataTable.js -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{% static 'senaback/js/index.js' %}"></script>
+    <script src="{% static 'senaback/js/Script4.js' %}"></script>
+    {% endblock content %}
+</body>
+</html>

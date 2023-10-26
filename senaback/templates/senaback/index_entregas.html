@@ -1,0 +1,177 @@
+{% extends "senaback/index_main.html" %}
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Styles -->
+    {% block css %}
+    <link href="{% static 'senaback/css/stylesmain3.css' %}" rel="stylesheet">
+    {% endblock css %}
+</head>
+<body>
+<!-- Tabla de Entregas -->
+
+{% block content %}
+    <section>
+        <div id="titulo">
+            <h1>Lista de Entregas</h1>
+            <form method="get" action="{% url 'elementos_consumibles' %}">
+                <div id="filtrar">
+                    <input type="text" name="filtro" placeholder="Filtrar por..." value="{{ filtro }}">
+                    <button type="submit">Filtrar</button>
+                </div>
+            </form>
+        </div>
+<body>
+    <table id="prueba-tabla">
+        <thead>
+            <tr id="tabla-titulo">
+                <th>Elemento</th>
+                <th>Serial</th>
+                <th>Cantidad</th>
+                <th>Resposable</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entrega in entregas %}
+            <tr class="tabla-contenido">
+                <td>{{ entrega.elemento }}</td>
+                <td>{{ entrega.serial }}</td>
+                <td>{{ entrega.cantidad }}</td>
+                <td>{{ entrega.responsable }}</td>
+                <td>
+                    <div class="tabla-contenido-boton">
+                        <a onclick="openModal('{{ entrega.id }}')" href="#" id="formulario-editar-elemento-link"  data-formulario="editar-elemento">
+                            <img src="{% static 'senaback/img/usuarios.svg' %}" alt="Editar">
+                        </a>
+                    </div>
+                    {% comment %} <div class="tabla-contenido-boton">
+                        <a href='{% url "edit_consumible" elemento.id %}'>Editar</a>
+                    </div> {% endcomment %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <div id="paginacion">
+            <ul>
+                <li><a href="#" id="anterior">
+                </a></li>
+                <li><a href="#" class="pagina-actual">1</a></li>
+                <li><a href="#" class="pagina">2</a></li>
+                <li><a href="#" class="pagina">3</a></li>
+                <li><a href="#" id="siguiente">
+                </a></li>
+            </ul>
+        </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabla = document.getElementById("prueba-tabla");
+            const filas = tabla.getElementsByTagName("tr");
+            const filasPorPagina = 10;
+            let paginaActual = 1;
+            function mostrarPagina(pagina) {
+            for (let i = 1; i < filas.length; i++) {
+                filas[i].style.display = "none";
+            }
+            const inicio = (pagina - 1) * filasPorPagina + 1;
+            const fin = inicio + filasPorPagina;
+            for (let i = inicio; i < fin; i++) {
+                if (filas[i]) {
+                filas[i].style.display = "";
+                }
+            }
+            }
+            function actualizarPaginacion() {
+            const paginas = Math.ceil((filas.length - 1) / filasPorPagina);
+            const paginacion = document.getElementById("paginacion");
+            paginacion.innerHTML = `<ul>
+                <li><a href="#" id="anterior">&laquo; Anterior</a></li>
+            </ul>`;
+            for (let i = 1; i <= paginas; i++) {
+                const pagina = document.createElement("li");
+                pagina.innerHTML = `<a href="#" class="pagina">${i}</a>`;
+                paginacion.querySelector("ul").appendChild(pagina);
+            }
+            paginacion.innerHTML += `<ul>
+                <li><a href="#" id="siguiente">Siguiente &raquo;</a></li>
+            </ul>`;
+            const paginasElement = document.querySelectorAll(".pagina");
+            paginasElement[paginaActual - 1].classList.add("pagina-actual");
+            paginasElement.forEach((element, index) => {
+                element.addEventListener("click", () => {
+                paginaActual = index + 1;
+                mostrarPagina(paginaActual);
+
+                paginasElement.forEach((el) => el.classList.remove("pagina-actual"));
+                element.classList.add("pagina-actual");
+            });
+            });
+
+            const botonAnterior = document.getElementById("anterior");
+            const botonSiguiente = document.getElementById("siguiente");
+
+            botonAnterior.addEventListener("click", () => {
+                if (paginaActual > 1) {
+                paginaActual--;
+                mostrarPagina(paginaActual);
+
+                paginasElement.forEach((el) => el.classList.remove("pagina-actual"));
+                paginasElement[paginaActual - 1].classList.add("pagina-actual");
+            }
+            });
+
+            botonSiguiente.addEventListener("click", () => {
+            if (paginaActual < paginas) {
+                paginaActual++;
+                mostrarPagina(paginaActual);
+
+                paginasElement.forEach((el) => el.classList.remove("pagina-actual"));
+                paginasElement[paginaActual - 1].classList.add("pagina-actual");
+                }
+            });
+            }
+            mostrarPagina(paginaActual);
+            actualizarPaginacion();
+        });
+        </script>
+    </table>
+    </section>
+    <section id="botones-seccion">
+        <a href="#">
+            <div class="inventario-boton">
+                <h3>Préstamos Próximos a Vencer</h3>
+            </div>
+        </a>
+            <div class="btn">
+                <div class="calendario">
+                    <div class="box-calendar">
+                        <a href="calendario/calendar.html"><i class="fa-regular fa-calendar-days"; style="color: #fff; font-size: 30px;"></i></a>
+                    </div>
+                </div>
+                <div class="reporte">
+                    <div class="a-report">
+                        <a href=""><i class="fa-regular fa-file" style="color: #fff; font-size: 30px;"></i></a>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <footer id="main-footer">
+        <div class="horizontal">
+            <div>
+
+            </div>
+            <div id="footer-info">
+                <p>Copyright 2023</p>
+                <p>Servicio Nacional de Aprendizaje - SENA</p>
+                <p>Tel: 300 800 4050</p>
+            </div>
+            <div class="logo">
+                <img src="img/logo-sena.svg" alt="">
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
