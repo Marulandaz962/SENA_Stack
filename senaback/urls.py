@@ -19,5 +19,6 @@ urlpatterns = [
     path('Listar_devolutivos/', views.listar_devolutivos, name='Listar_devolutivos'),
     path('obtener_elementos_devolutivos/', views.obtener_elementos_devolutivos, name='obtener_elementos_devolutivos'),
 
-    path('Lista_entregas/', views.obtener_entregas, name='Listar_entregas'),  
+    path('getlist_entregas/', views.getlist_entregas, name="getlist_entregas"),
+    path('list_entregas/', views.list_entregas, name="list_entregas"),
 ]

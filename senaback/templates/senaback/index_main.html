@@ -45,21 +45,13 @@
                     <li><a href="{% url 'Listar_devolutivos' %}">Listar Elementos Devolutivos</a></li>
                     <!-- <li><a href="#">Listar usuario</a></li> -->
                 </ul>
-            </li>
-            {% comment %} <li><div class="icono"><img src="{% static 'senaback/img/consumible.svg' %}"></div><a href="#">Consumibles</a>
-                <ul>
-                    <li><a href="#">Crear elementos</a></li>
-                    <li><a href="#">Editar Consumible</a></li>
-                    <li><a href="#">Listar Consumibles</a></li>
-                </ul>
-            </li> {% endcomment %}
+            </li>            
             <li><div class="icono"><img src="{% static 'senaback/img/transacciones.svg' %}"></div><a href="#">Transacciones</a>
-                <ul>
-                    {% comment %} <li><a href="#">otorgar elemento</a></li>
-                    <li><a href="{% url "Listar_Entrega" %}">Listar entregas</a></li>
-                    <li><a href="{% url "Listar_Consumibles" %}">Listar entregas</a></li> {% endcomment %}
-                </ul>
-            </li>
+				<ul>
+					<li><a href="{% url "list_entregas" %}">Listar entregas</a></li>
+					{% comment %} <li><a href="{% url "Listar_Consumibles" %}">Listar entregas</a></li> {% endcomment %}
+				</ul>
+			</li>
             <li><div class="icono"><img src="{% static 'senaback/img/opciones.svg' %}"></div><a href="#">Opciones</a>
                 <ul>
                     <li><a href="#">Ver perfil</a></li>
