@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http.response import JsonResponse
 from .models import ElementoConsumible
 from .forms import ElementoConsumibleForm
-from .models import ElementoDevolutivo
+from .models import *
 from .forms import ElementoDevolutivoForm
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -73,7 +73,7 @@ def edit_form(request, id):
 
 
 def get_consumable_details(request, consumable_id):
-    consumible = get_object_or_404(ElementoConsumible, id=consumible_id)
+    consumible = get_object_or_404(ElementoConsumible, id= consumible_id)
 
     data = {
         'nombre': consumible.nombre,
@@ -165,3 +165,31 @@ def obtener_entregas(request):
             'responsable': entrega.valor,
         })
     return render(request, 'senaback/index_entregas.html', {'entregas': entregas})
+
+def obtener_entregas(request):
+    entregas = entrega.objects.all()
+    data = []
+    for entrega in entregas:
+        data.append({
+            'id': entrega.id,
+            'elemento': entrega.nombre,
+            'serial': entrega.serial,
+            'cantidad': entrega.cantidad_total,
+            'responsable': entrega.valor,
+        })
+    return render(request, 'senaback/index_entregas.html', {'entregas': entregas})
+
+def getlist_entregas(request):
+    entregas = list(entrega.objects.values())
+    data = {'entregas':entregas}
+    return JsonResponse(data)
+
+def list_entregas(request):
+    entregas = entrega.objects.all()
+    data = {'entregas':entregas}
+    return render(request, 'senaback/index_entregas.html', data)
+
+# Usuarios
+def obtener_usuarios(request):
+    usuarios = Usuario.objects.all()  # Obtener todos los usuarios desde la base de datos
+    return render(request, 'senaback/index_entregas.html', {'usuarios': usuarios})
