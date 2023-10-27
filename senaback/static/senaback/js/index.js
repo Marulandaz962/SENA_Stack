@@ -41,7 +41,7 @@ const listConsumables = async () => {
             content += `
                 <tr>
                     <td>${consumible.id}</td>
-                    <td>${consumible.nombre}</td>
+                    <td>${consumible.nombre_consumible}</td>
                     <td>${consumible.categoria}</td>
                     <td>${consumible.serial}</td>
                     <td>${consumible.cantidad_total}</td>                    
