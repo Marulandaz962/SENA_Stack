@@ -60,17 +60,11 @@ WSGI_APPLICATION = 'senaStock.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': env('HOST'),
-        'PORT': env('PORT'),
-        'USER': env("USER"),
-        'PASSWORD': env("PASSWORD"),
-        'NAME': env("NAME_DB"),
-        'OPTIONS': {
-            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'"
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

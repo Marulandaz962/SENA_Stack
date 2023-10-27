@@ -36,6 +36,7 @@ const listConsumables = async () => {
 		const response = await fetch("http://127.0.0.1:8000/senaback/getlist_consumables/");
 		const data = await response.json();
 
+<<<<<<< HEAD
 		let content = ``;
 		data.consumibles.forEach((consumible, index) => {
 			content += `
@@ -80,6 +81,28 @@ const listConsumables = async () => {
 	} catch (ex) {
 		console.warn(ex);
 	}
+=======
+        let content = ``;
+        data.consumibles.forEach((consumible, index) => {
+            content += `
+                <tr>
+                    <td>${consumible.id}</td>
+                    <td>${consumible.nombre_consumible}</td>
+                    <td>${consumible.categoria}</td>
+                    <td>${consumible.serial}</td>
+                    <td>${consumible.cantidad_total}</td>                    
+                    <td>${consumible.valor}</td>
+                    <td>${consumible.descripcion_elemento}</td>                                      
+                    <td>
+                    <button class='btn btn-sm btn-primary' data-id="${consumible.id}"><i class='fa-solid fa-pencil'></i></button>
+                    </td>
+                </tr>`;
+        });
+        tableBody_consumables.innerHTML = content;
+    } catch (ex) {
+        console.warn(ex);
+    }
+>>>>>>> b86bf7c90aab6b1b16c883f4ff5215769edb064a
 };
 
 window.addEventListener("load", async () => {
@@ -132,27 +155,3 @@ window.addEventListener('click', function(event) {
 });
 
 
-
-
-
-
-
-  // Traer los Datos del Elemento al FDormulario de Editar:
-
-  // Agrega una función para llenar el formulario de edición con los datos del elemento consumible
-	const fillEditForm = async (consumibleId) => {
-	try {
-		const response = await fetch(`http://127.0.0.1:8000/senaback/get_consumable_details/${consumibleId}`);
-		const consumibleData = await response.json();
-		
-		// Llena los campos del formulario con los datos del elemento consumible
-		document.querySelector("#username").value = consumibleData.nombre;
-		document.querySelector("#categoria").value = consumibleData.categoria;
-		document.querySelector("#serial").value = consumibleData.serial;
-		document.querySelector("#cantidad").value = consumibleData.cantidad_total;
-		document.querySelector("#valor").value = consumibleData.valor;
-		document.querySelector("#descripcion").value = consumibleData.descripcion_elemento;
-	} catch (ex) {
-		console.warn(ex);
-	}
-};
