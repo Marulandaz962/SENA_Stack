@@ -39,10 +39,10 @@ const listEntregas = async () => {
             content += `
                 <tr>
                     <td>${entrega.id}</td>
-                    <td>${entrega.elemento_entrega}</td>
+                    <td>${entrega.elemento_entrega_id}</td>
                     <td>${entrega.fecha_Entrega}</td>
                     <td>${entrega.cantidad}</td>
-                    <td>${entrega.responsable_entrega}</td>                    
+                    <td>${entrega.responsable_entrega_id}</td>                    
                     <td>${entrega.observaciones}</td>                    
                     <td>
                         <button class='btn btn-sm btn-primary'><i class='fa-solid fa-pencil'></i></button>                        
