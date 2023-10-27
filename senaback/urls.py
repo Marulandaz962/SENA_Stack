@@ -21,4 +21,5 @@ urlpatterns = [
 
     path('getlist_entregas/', views.getlist_entregas, name="getlist_entregas"),
     path('list_entregas/', views.list_entregas, name="list_entregas"),
-]
+    path('crear_entrega/', views.crear_entrega, name='crear_entrega'),
+]   

@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.http.response import JsonResponse
 from .models import ElementoConsumible
 from .forms import ElementoConsumibleForm
-from .models import *
+from .models import Usuario
+from .models import entrega
+from .models import ElementoDevolutivo
 from .forms import ElementoDevolutivoForm
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -32,7 +34,7 @@ def obtener_elementos_consumibles(request):
             'categoria': elemento.categoria,
             'descripcion': elemento.descripcion_elemento,
         })
-    return render(request, 'senaback/index_consumible.html', {'elemento_consumibles': elementos_consumibles})
+    return render(request, 'senaback/index_consumible.html', {'elementos_consumibles': elementos_consumibles})
 
 def get_list_consumables(request):
     elementos_consumibles = list(ElementoConsumible.objects.values())
@@ -73,7 +75,7 @@ def edit_form(request, id):
 
 
 def get_consumable_details(request, consumable_id):
-    consumible = get_object_or_404(ElementoConsumible, id= consumible_id)
+    consumible = get_object_or_404(ElementoConsumible, id=consumible_id)
 
     data = {
         'nombre': consumible.nombre,
@@ -164,7 +166,7 @@ def obtener_entregas(request):
             'cantidad': entrega.cantidad_total,
             'responsable': entrega.valor,
         })
-    return render(request, 'senaback/index_entregas.html', {'entregas': entregas})
+    return render(request, 'senaback/index_entrega.html', {'entregas': entregas})
 
 def obtener_entregas(request):
     entregas = entrega.objects.all()
@@ -177,7 +179,7 @@ def obtener_entregas(request):
             'cantidad': entrega.cantidad_total,
             'responsable': entrega.valor,
         })
-    return render(request, 'senaback/index_entregas.html', {'entregas': entregas})
+    return render(request, 'senaback/index_entrega.html', {'entregas': entregas})
 
 def getlist_entregas(request):
     entregas = list(entrega.objects.values())
@@ -187,9 +189,13 @@ def getlist_entregas(request):
 def list_entregas(request):
     entregas = entrega.objects.all()
     data = {'entregas':entregas}
-    return render(request, 'senaback/index_entregas.html', data)
+    return render(request, 'senaback/index_entrega.html', data)
+
+def crear_entrega(request):
+    return render(request, 'senaback/index_entrega.html')
 
 # Usuarios
-def obtener_usuarios(request):
-    usuarios = Usuario.objects.all()  # Obtener todos los usuarios desde la base de datos
-    return render(request, 'senaback/index_entregas.html', {'usuarios': usuarios})
+def crear_entrega(request):
+    elementos_consumibles = ElementoConsumible.objects.all()
+    usuarios = Usuario.objects.all()
+    return render(request, 'senaback/index_main.html', {'elementos_consumibles': elementos_consumibles, 'usuarios': usuarios})

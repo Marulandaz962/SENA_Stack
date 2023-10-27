@@ -36,13 +36,12 @@ const listConsumables = async () => {
 		const response = await fetch("http://127.0.0.1:8000/senaback/getlist_consumables/");
 		const data = await response.json();
 
-<<<<<<< HEAD
 		let content = ``;
 		data.consumibles.forEach((consumible, index) => {
 			content += `
 				<tr>
 					<td>${consumible.id}</td>
-					<td>${consumible.nombre}</td>
+					<td>${consumible.nombre_consumible}</td>
 					<td>${consumible.categoria}</td>
 					<td>${consumible.serial}</td>
 					<td>${consumible.cantidad_total}</td>                    
@@ -81,28 +80,6 @@ const listConsumables = async () => {
 	} catch (ex) {
 		console.warn(ex);
 	}
-=======
-        let content = ``;
-        data.consumibles.forEach((consumible, index) => {
-            content += `
-                <tr>
-                    <td>${consumible.id}</td>
-                    <td>${consumible.nombre_consumible}</td>
-                    <td>${consumible.categoria}</td>
-                    <td>${consumible.serial}</td>
-                    <td>${consumible.cantidad_total}</td>                    
-                    <td>${consumible.valor}</td>
-                    <td>${consumible.descripcion_elemento}</td>                                      
-                    <td>
-                    <button class='btn btn-sm btn-primary' data-id="${consumible.id}"><i class='fa-solid fa-pencil'></i></button>
-                    </td>
-                </tr>`;
-        });
-        tableBody_consumables.innerHTML = content;
-    } catch (ex) {
-        console.warn(ex);
-    }
->>>>>>> b86bf7c90aab6b1b16c883f4ff5215769edb064a
 };
 
 window.addEventListener("load", async () => {
