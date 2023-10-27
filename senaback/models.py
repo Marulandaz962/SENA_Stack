@@ -64,7 +64,7 @@ class prestamo(models.Model):
     responsable = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='prestamos_responsable')
     fecha_Prestamo = models.DateField()
     fecha_Devolucion = models.DateField()
-    estado = models.CharField(max_length=20) # En curso, Devuelto, No devuelto
+    estado = models.CharField(max_length=20) # En curso, Finalizado
 
 class entrega(models.Model):
     elemento = models.ForeignKey(ElementoConsumible, on_delete=models.CASCADE, related_name='entregas_elemento', to_field='nombre')
