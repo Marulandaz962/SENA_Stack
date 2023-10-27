@@ -1,5 +1,3 @@
-
-// logica de la tabla de Boostrap
 let dataTable;
 let dataTableIsInitialized = false;
 
@@ -18,97 +16,54 @@ const dataTableOptions = {
 };
 
 const initDataTable = async () => {
-	console.log('inicializando tabla');
+	console.log('Inicializando tabla');
 
 	if (dataTableIsInitialized) {
 		dataTable.destroy();
-		
 	}
 
 	await listConsumables();
-	
+
 	dataTable = $("#datatables-consumibles").DataTable(dataTableOptions);
 
 	dataTableIsInitialized = true;
 };
+
 const listConsumables = async () => {
 	try {
 		const response = await fetch("http://127.0.0.1:8000/senaback/getlist_consumables/");
 		const data = await response.json();
 
-<<<<<<< HEAD
 		let content = ``;
 		data.consumibles.forEach((consumible, index) => {
 			content += `
 				<tr>
 					<td>${consumible.id}</td>
-					<td>${consumible.nombre}</td>
+					<td>${consumible.nombre_consumible}</td>
 					<td>${consumible.categoria}</td>
 					<td>${consumible.serial}</td>
-					<td>${consumible.cantidad_total}</td>                    
+					<td>${consumible.cantidad_total}</td>
 					<td>${consumible.valor}</td>
-					<td>${consumible.descripcion_elemento}</td>                                      
+					<td>${consumible.descripcion_elemento}</td>
 					<td>
-
-					<button type="button" id="editar-elemento" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-					Launch static backdrop modal
-					</button>
-					<div class="modal" tabindex="-1">
-					<div class="modal-dialog">
-					  <div class="modal-content">
-						<div class="modal-header">
-						  <h5 class="modal-title">Editar Elemento</h5>
-						  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-						  <p>Modal body text goes here.</p>
-						</div>
-						<div class="modal-footer">
-						  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						  <button type="button" class="btn btn-primary">Save changes</button>
-						</div>
-					  </div>
-					</div>
-				  </div>
-
-
-				
-					
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+							Editar Elemento
+						</button>
+						
 					</td>
 				</tr>`;
 		});
-		tableBody_consumables.innerHTML = content;
+		// Agregar contenido a la tabla
+		$("#datatables-consumibles tbody").html(content);
 	} catch (ex) {
 		console.warn(ex);
 	}
-=======
-        let content = ``;
-        data.consumibles.forEach((consumible, index) => {
-            content += `
-                <tr>
-                    <td>${consumible.id}</td>
-                    <td>${consumible.nombre_consumible}</td>
-                    <td>${consumible.categoria}</td>
-                    <td>${consumible.serial}</td>
-                    <td>${consumible.cantidad_total}</td>                    
-                    <td>${consumible.valor}</td>
-                    <td>${consumible.descripcion_elemento}</td>                                      
-                    <td>
-                    <button class='btn btn-sm btn-primary' data-id="${consumible.id}"><i class='fa-solid fa-pencil'></i></button>
-                    </td>
-                </tr>`;
-        });
-        tableBody_consumables.innerHTML = content;
-    } catch (ex) {
-        console.warn(ex);
-    }
->>>>>>> b86bf7c90aab6b1b16c883f4ff5215769edb064a
 };
 
 window.addEventListener("load", async () => {
 	await initDataTable();
-	
 });
+
 
 
 
