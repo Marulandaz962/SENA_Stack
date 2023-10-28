@@ -1,5 +1,3 @@
-
-// logica de la tabla de Boostrap
 let dataTable;
 let dataTableIsInitialized = false;
 
@@ -18,19 +16,19 @@ const dataTableOptions = {
 };
 
 const initDataTable = async () => {
-	console.log('inicializando tabla');
+	console.log('Inicializando tabla');
 
 	if (dataTableIsInitialized) {
 		dataTable.destroy();
-		
 	}
 
 	await listConsumables();
-	
+
 	dataTable = $("#datatables-consumibles").DataTable(dataTableOptions);
 
 	dataTableIsInitialized = true;
 };
+
 const listConsumables = async () => {
 	try {
 		const response = await fetch("http://127.0.0.1:8000/senaback/getlist_consumables/");
@@ -44,18 +42,19 @@ const listConsumables = async () => {
 					<td>${consumible.nombre_consumible}</td>
 					<td>${consumible.categoria}</td>
 					<td>${consumible.serial}</td>
-					<td>${consumible.cantidad_total}</td>                    
+					<td>${consumible.cantidad_total}</td>
 					<td>${consumible.valor}</td>
-					<td>${consumible.descripcion_elemento}</td>                                      
+					<td>${consumible.descripcion_elemento}</td>
 					<td>
-
-					<button type="button" id="editar-elemento" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-					Launch static backdrop modal
-					</button>					
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+							Editar Elemento
+						</button>
+						
 					</td>
 				</tr>`;
 		});
-		tableBody_consumables.innerHTML = content;
+		// Agregar contenido a la tabla
+		$("#datatables-consumibles tbody").html(content);
 	} catch (ex) {
 		console.warn(ex);
 	}
@@ -63,51 +62,35 @@ const listConsumables = async () => {
 
 window.addEventListener("load", async () => {
 	await initDataTable();
-	
 });
+
 
 
 
 
 //-------------  Editar Elemento -------------------------------------
 
-// Obtén el modal y los botones de abrir y cerrar
-var modalEditarElemento = document.getElementById('formulario-editar-elemento');
-var abrirModalBotonEditar = document.getElementById('boton-editar');
-var cerrarModalBoton = document.getElementById('close-modal');
-var guardarModalBoton = document.getElementById('btn-guardar-editar');
-var cancelarModalBoton = document.getElementById('btn-no-guardar-editar'); // Agrega este botón
+$(document).ready(function () {
+	// Agrega un evento click al botón "Editar Elemento" de la tabla
+	$('#datatables-consumibles').on('click', '.btn-primary', function () {
+	  // Abre el modal con el id "formulario-editar-elemento"
+	$('#formulario-editar-elemento').modal('show');
+	});
 
-// Agrega un evento click al botón de abrir para mostrar el modal
-abrirModalBotonEditar.addEventListener('click', function() {
-  modalEditarElemento.style.display = 'block';
-});
+	// Agrega un evento click al botón "Guardar" dentro del modal
+	$('#btn-guardar-editar').click(function () {
 
-// Agrega un evento click al botón de cerrar para ocultar el modal
-cerrarModalBoton.addEventListener('click', function() {
-  modalEditarElemento.style.display = 'none';
-});
+		
+	$('#formulario-editar-elemento').modal('hide');
+	});
 
-// Agrega un evento click al botón de guardar para enviar el formulario y cerrar el modal
-guardarModalBoton.addEventListener('click', function() {
-  // Envía el formulario (puede que necesites agregar validación aquí)
-  document.querySelector('form').submit();
-
-  // Cierra el modal
-  modalEditarElemento.style.display = 'none';
-});
-
-// Agrega un evento click al botón de cancelar para cerrar el modal
-cancelarModalBoton.addEventListener('click', function() {
-  // Cierra el modal sin enviar el formulario
-  modalEditarElemento.style.display = 'none';
-});
-
-// Cierra el modal si se hace clic fuera del contenido del modal
-window.addEventListener('click', function(event) {
-  if (event.target == modalEditarElemento) {
-	modalEditarElemento.style.display = 'none';
-  }
+	// Agrega un evento click al botón "Cancelar" dentro del modal
+	$('#btn-no-guardar-editar').click(function () {
+	  // Realiza las acciones que deseas al hacer clic en "Cancelar"
+	  // Por ejemplo, puedes restablecer los valores del formulario
+	  // Luego, cierra el modal
+	$('#formulario-editar-elemento').modal('hide');
+	});
 });
 
 
