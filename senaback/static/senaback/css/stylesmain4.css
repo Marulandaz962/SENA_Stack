@@ -156,6 +156,11 @@ border-radius: 5px;
 border: 0.5px solid;
 height: 21px;
 }
+/* Ajusta el ancho de los elementos select */
+.modal-content select {
+    width: 60%; /* O el valor que desees */
+    margin-bottom: 10px; /* Espacio entre los elementos select */
+}
 
 
 #tipo-elemento,#estado{
