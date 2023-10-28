@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http.response import JsonResponse
-from .models import ElementoConsumible
 from .forms import ElementoConsumibleForm
-from .models import Usuario
-from .models import entrega
-from .models import ElementoDevolutivo
+from .models import *
 from .forms import ElementoDevolutivoForm
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -166,7 +163,7 @@ def obtener_entregas(request):
             'cantidad': entrega.cantidad_total,
             'responsable': entrega.valor,
         })
-    return render(request, 'senaback/index_entrega.html', {'entregas': entregas})
+    return render(request, 'senaback/index_entregas.html.html', {'entregas': entregas})
 
 def obtener_entregas(request):
     entregas = entrega.objects.all()
@@ -179,7 +176,7 @@ def obtener_entregas(request):
             'cantidad': entrega.cantidad_total,
             'responsable': entrega.valor,
         })
-    return render(request, 'senaback/index_entrega.html', {'entregas': entregas})
+    return render(request, 'senaback/index_entregas.html.html', {'entregas': entregas})
 
 def getlist_entregas(request):
     entregas = list(entrega.objects.values())
@@ -189,10 +186,10 @@ def getlist_entregas(request):
 def list_entregas(request):
     entregas = entrega.objects.all()
     data = {'entregas':entregas}
-    return render(request, 'senaback/index_entrega.html', data)
+    return render(request, 'senaback/index_entregas.html.html', data)
 
 def crear_entrega(request):
-    return render(request, 'senaback/index_entrega.html')
+    return render(request, 'senaback/index_entregas.html.html')
 
 # Usuarios
 def crear_entrega(request):

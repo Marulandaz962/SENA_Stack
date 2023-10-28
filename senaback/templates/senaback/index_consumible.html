@@ -22,10 +22,13 @@
         <hr>
         <form method="post" action="{% url 'crear_elemento_consumible' %}">
             {% csrf_token %}
-            <label for="nombre">Elemento</label>
-            <input type="text" id="nombre" name="nombre">
+            <label for="nombre_consumible">Elemento</label>
+            <input type="text" id="nombre_consumible" name="nombre_consumible">
             <label for="categoria">Categoria</label>
-            <input type="text" id="categoria" name="categoria">
+            <select id="categoria" name="categoria">
+                <option value="Papelería">Papelería</option>
+                <option value="Suministros_de_Impresión">Suministros de Impresión</option>
+            </select><br>
             <label for="serial">Serial:</label>
             <input type="text" id="serial" name="serial">
             <label for="cantidad_total">Cantidad:</label>
@@ -52,7 +55,10 @@
             <label for="username">Elemento</label>
             <input type="text" id="username" name="username">
             <label for="categoria">Categoria</label>
-            <input type="text" id="categoria" name="categoria">
+            <select id="categoria" name="categoria">
+                <option value="Papelería">Papelería</option>
+                <option value="Suministros_de_Impresión">Suministros de Impresión</option>
+            </select><br>
             <label for="serial">Serial:</label>
             <input type="text" id="serial" name="serial">
             <label for="cantidad">Cantidad:</label>
@@ -101,7 +107,7 @@
     </div>    
     <section id="botones-seccion-crear">
         <button id="abrir-modal">Crear Elemento</button>
-    </section>    
+    </section> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
