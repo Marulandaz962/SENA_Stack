@@ -1,6 +1,7 @@
 
   //------------------------ Crear elemento -------------------------------------------------------
   
+document.addEventListener("DOMContentLoaded", function () {
 // Obtén el modal y los botones de abrir y cerrar
 var modalCrearElemento = document.getElementById('formulario-crear-elemento');
 var abrirModalBoton = document.getElementById('abrir-modal');
@@ -38,4 +39,6 @@ window.addEventListener('click', function(event) {
   if (event.target == modalCrearElemento) {
     modalCrearElemento.style.display = 'none';
   }
+});
+
 });

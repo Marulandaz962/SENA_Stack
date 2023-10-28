@@ -14,13 +14,14 @@
 	<link rel="stylesheet" href="{% static 'css/stylesmain4.css' %}" />
 </head>
 <body>
-	{% block content %}		
+	{% block content %}	
 	
 	<section id="formulario-crear-entrega" class="modal">
 		<div class="modal-content">
-		  <p>Entrega</p>
-		  <hr>
-			<form method="post" action="{% url 'crear_entrega' %}">      
+			<p>Entrega</p>
+			<hr>
+			<form method="post" action="{% url 'crear_entrega' %}">
+				{% csrf_token %}	      
 				<label for="elemento">Elemento</label>
 				<select id="elemento" name="elemento" placeholder="Elemento" >
 					{% for elemento in elementos_consumibles %}
@@ -38,12 +39,14 @@
 				<label for="descripcion">Descripción:</label>
 				<textarea id="descripcion" name="descripcion" rows="5" placeholder="Escribe una descripción"></textarea>             
 				<div class="botones-container">
-					<button class="btn-guardar" id="btn-no-guardar-crear" type="button">Cancelar</button>
-					<button class="btn-no-guardar" id="btn-guardar-crear" type="submit">Guardar</button>
+					<button class="btn-no-guardar" id="btn-no-guardar-entrega" type="button">Cancelar</button>
+					<button class="btn-guardar" id="btn-guardar-entrega" type="submit">Guardar</button>
 				</div>
 			</form>
 		</div>
 	</section>	
+
+
 	
 	<!-- Tabla de Elementos Consumibles -->
 	<div class="container mt-4">

@@ -70,6 +70,7 @@ section {
     text-decoration: none;
 }
 
+
 #botones-seccion-crear{
     display: flex;
     align-items: flex-start;
@@ -178,7 +179,7 @@ height: 21px;
 
 
 .btn-no-guardar{
-    background-color: #4caf50; /* Color de fondo */
+    background-color:red;  /* Color de fondo */
     color: white; /* Color del texto */
     border: none; /* Sin borde */
     padding: 10px 20px; /* Espaciado interno */
@@ -186,7 +187,7 @@ height: 21px;
     cursor: pointer; /* Cambiar el cursor al pasar el mouse */
 }
 .btn-guardar{
-    background-color: #f44336; /* Color de fondo */
+    background-color: #4caf50;  /* Color de fondo */
     color: white; /* Color del texto */
     border: none; /* Sin borde */
     padding: 10px 20px; /* Espaciado interno */

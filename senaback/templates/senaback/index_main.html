@@ -62,32 +62,6 @@
         </ul>
     </nav>
     
-		<div class="modal-content">
-		  <p>Entrega</p>
-		  <hr>
-			<form method="post" action="{% url 'crear_entrega' %}">      
-				<label for="elemento">Elemento</label>
-				<select id="elemento" name="elemento" placeholder="Elemento" >
-					{% for elemento in elementos_consumibles %}
-						<option value="{{ elemento.id }}">{{ elemento.nombre_consumible }}</option>
-					{% endfor %}
-				</select><br>			
-				<label for="cantidad">Cantidad</label>
-				<input type="number" id="cantidad" name="cantidad">      
-				<label for="responsable">Responsable</label>
-				<select id="responsable" name="responsable" placeholder="Responsable">
-					{% for responsable in usuarios %}
-						<option value="{{ responsable.id }}">{{ responsable.nombre_usuario }}</option>
-					{% endfor %}
-				</select><br>			
-				<label for="descripcion">Descripción:</label>
-				<textarea id="descripcion" name="descripcion" rows="5" placeholder="Escribe una descripción"></textarea>             
-				<div class="botones-container">
-					<button class="btn-guardar" id="btn-no-guardar-crear" type="button">Cancelar</button>
-					<button class="btn-no-guardar" id="btn-guardar-crear" type="submit">Guardar</button>
-				</div>
-			</form>
-		</div>
     {% block content %}
     
     
