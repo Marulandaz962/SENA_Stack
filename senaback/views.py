@@ -6,7 +6,7 @@ from .models import *
 from .forms import ElementoDevolutivoForm
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-
+from django.http import HttpResponse
 
 def index(request):
     return render(request, 'senaback/index_main.html')
@@ -25,7 +25,7 @@ def obtener_elementos_consumibles(request):
     for elemento in elementos_consumibles:
         data.append({
             'id': elemento.id,
-            'nombre': elemento.nombre,
+            'nombre': elemento.nombre_consumible,
             'serial': elemento.serial,
             'cantidad': elemento.cantidad_total,
             'valor': elemento.valor,
@@ -50,12 +50,9 @@ def crear_elemento_consumible(request):
         if form.is_valid():
             form.save()  # Guardar el nuevo elemento consumible en la base de datos
             return redirect('list_consumables')
-
     else:
         form = ElementoConsumibleForm()
     return render(request, 'senaback/index_consumible.html', {'form': form})
-
-
 
 def edit_form(request, id):
     consumible = ElementoConsumible.objects.get(id=id)
@@ -76,7 +73,7 @@ def get_consumable_details(request, consumable_id):
     consumible = get_object_or_404(ElementoConsumible, id= consumible_id)
 
     data = {
-        'nombre': consumible.nombre,
+        'nombre_consumible': consumible.nombre_consumible,
         'categoria': consumible.categoria,
         'serial': consumible.serial,
         'cantidad_total': consumible.cantidad_total,
@@ -92,7 +89,7 @@ def update_consumable(request):
         consumible = get_object_or_404(ElementoConsumible, id=consumible_id)
         
         # Actualiza los campos del elemento consumible
-        consumible.nombre = request.POST.get('nombre')
+        consumible.nombre_consumible = request.POST.get('nombre_consumibles')
         consumible.categoria = request.POST.get('categoria')
         consumible.serial = request.POST.get('serial')
         consumible.cantidad_total = request.POST.get('cantidad_total')
@@ -159,7 +156,7 @@ def obtener_entregas(request):
     for entrega in entregas:
         data.append({
             'id': entrega.id,
-            'elemento': entrega.nombre,
+            'elemento': entrega.elemento_entrega,
             'serial': entrega.serial,
             'cantidad': entrega.cantidad_total,
             'responsable': entrega.valor,
