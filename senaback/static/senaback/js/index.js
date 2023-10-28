@@ -74,23 +74,23 @@ $(document).ready(function () {
 	// Agrega un evento click al botón "Editar Elemento" de la tabla
 	$('#datatables-consumibles').on('click', '.btn-primary', function () {
 	  // Abre el modal con el id "formulario-editar-elemento"
-	  $('#formulario-editar-elemento').modal('show');
+	$('#formulario-editar-elemento').modal('show');
 	});
-  
+
 	// Agrega un evento click al botón "Guardar" dentro del modal
 	$('#btn-guardar-editar').click(function () {
 
 		
-	  $('#formulario-editar-elemento').modal('hide');
+	$('#formulario-editar-elemento').modal('hide');
 	});
-  
+
 	// Agrega un evento click al botón "Cancelar" dentro del modal
 	$('#btn-no-guardar-editar').click(function () {
 	  // Realiza las acciones que deseas al hacer clic en "Cancelar"
 	  // Por ejemplo, puedes restablecer los valores del formulario
 	  // Luego, cierra el modal
-	  $('#formulario-editar-elemento').modal('hide');
+	$('#formulario-editar-elemento').modal('hide');
 	});
-  });
-  
+});
+
 
