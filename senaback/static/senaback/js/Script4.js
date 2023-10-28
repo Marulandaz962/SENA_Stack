@@ -39,4 +39,3 @@ window.addEventListener('click', function(event) {
     modalCrearElemento.style.display = 'none';
   }
 });
-

@@ -3,7 +3,7 @@ from .models import ElementoConsumible
 from .models import ElementoDevolutivo
 
 class FiltroElementoForm(forms.Form):
-    nombre = forms.CharField(max_length=100, required=False)
+    nombre_consumible = forms.CharField(max_length=100, required=False)
     categoria = forms.CharField(max_length=50, required=False)
     serial = forms.CharField(max_length=20, required=False)
     nombre_devolutivo = forms.CharField(max_length=100, required=False)
