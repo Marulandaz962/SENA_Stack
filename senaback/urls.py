@@ -25,4 +25,5 @@ urlpatterns = [
 
     path('getlist_prestamos/', views.get_list_prestamos, name="getlist_prestamos"),
     path('list_prestamos/', views.list_prestamos, name="list_prestamos"),
+    path('crear_prestamo/', views.crear_entrega, name='crear_entrega'),
 ]   
