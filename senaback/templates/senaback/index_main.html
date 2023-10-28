@@ -48,7 +48,8 @@
             </li>            
             <li><div class="icono"><img src="{% static 'senaback/img/transacciones.svg' %}"></div><a href="#">Transacciones</a>
 				<ul>
-					<li><a href="{% url "list_entregas" %}">Listar entregas</a></li>
+					<li><a href="{% url "list_entregas" %}">Entregas</a></li>
+                    <li><a href="{% url "list_prestamos" %}">Préstamos</a></li>
 					{% comment %} <li><a href="{% url "Listar_Consumibles" %}">Listar entregas</a></li> {% endcomment %}
 				</ul>
 			</li>

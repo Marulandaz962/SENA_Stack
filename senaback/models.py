@@ -63,13 +63,12 @@ class Garantia(models.Model):
     responsable = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='garantias_responsable')
     Descripcion = models.CharField(max_length=150)
 
-class prestamo(models.Model):
-    elemento = models.ForeignKey(ElementoDevolutivo, on_delete=models.CASCADE, related_name='prestamos_elemento')
-    serial = models.ForeignKey(ElementoDevolutivo, on_delete=models.CASCADE, related_name='prestamos_serial')
-    cantidad = models.IntegerField()
-    responsable = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='prestamos_responsable')
+class prestamos(models.Model):
+    elemento_prestamo = models.ForeignKey(ElementoDevolutivo, on_delete=models.CASCADE, related_name='prestamos_elemento', to_field='nombre_devolutivo')
+    responsable_prestamo = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='prestamos_responsable', to_field='nombre_usuario')
     fecha_Prestamo = models.DateField()
     fecha_Devolucion = models.DateField()
+    observaciones = models.TextField(blank=True, null= True)
     estado = models.CharField(max_length=20) # En curso, Finalizado
 
 class entrega(models.Model):

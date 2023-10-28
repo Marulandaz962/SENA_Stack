@@ -14,8 +14,8 @@ admin.site.register(Baja)
 # from .models import Garantia
 # admin.site.register(Garantia)
 
-# from .models import prestamo
-# admin.site.register(prestamo)
+from .models import prestamos
+admin.site.register(prestamos)
 
 from .models import entrega
 admin.site.register(entrega)
