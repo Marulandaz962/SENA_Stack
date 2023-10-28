@@ -22,4 +22,7 @@ urlpatterns = [
     path('getlist_entregas/', views.getlist_entregas, name="getlist_entregas"),
     path('list_entregas/', views.list_entregas, name="list_entregas"),
     path('crear_entrega/', views.crear_entrega, name='crear_entrega'),
+
+    path('getlist_prestamos/', views.get_list_prestamos, name="getlist_prestamos"),
+    path('list_prestamos/', views.list_prestamos, name="list_prestamos"),
 ]   

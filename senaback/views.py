@@ -43,6 +43,7 @@ def list_consumables(request):
     data = {'consumibles':elementos_consumibles}
     return render(request, 'senaback/index_consumible.html', data)
 
+
 def crear_elemento_consumible(request):
     if request.method == 'POST':
         form = ElementoConsumibleForm(request.POST)
@@ -160,7 +161,7 @@ def obtener_entregas(request):
             'cantidad': entrega.cantidad_total,
             'responsable': entrega.valor,
         })
-    return render(request, 'senaback/index_entregas.html.html', {'entregas': entregas})
+    return render(request, 'senaback/index_entregas.html', {'entregas': entregas})
 
 def obtener_entregas(request):
     entregas = entrega.objects.all()
@@ -173,7 +174,7 @@ def obtener_entregas(request):
             'cantidad': entrega.cantidad_total,
             'responsable': entrega.valor,
         })
-    return render(request, 'senaback/index_entregas.html.html', {'entregas': entregas})
+    return render(request, 'senaback/index_entregas.html', {'entregas': entregas})
 
 def getlist_entregas(request):
     entregas = list(entrega.objects.values())
@@ -183,13 +184,31 @@ def getlist_entregas(request):
 def list_entregas(request):
     entregas = entrega.objects.all()
     data = {'entregas':entregas}
-    return render(request, 'senaback/index_entregas.html.html', data)
+    return render(request, 'senaback/index_entregas.html', data)
 
 def crear_entrega(request):
-    return render(request, 'senaback/index_entregas.html.html')
+    return render(request, 'senaback/index_entregas.html')
 
 # Usuarios
 def crear_entrega(request):
     elementos_consumibles = ElementoConsumible.objects.all()
     usuarios = Usuario.objects.all()
     return render(request, 'senaback/index_main.html', {'elementos_consumibles': elementos_consumibles, 'usuarios': usuarios})
+
+# Préstamos
+
+def get_list_prestamos(request):
+    prestamo = list(prestamos.objects.values())
+    data = {'prestamos':prestamo}
+    return JsonResponse(data)
+
+def list_prestamos(request):
+    obtener_prestamos = prestamos.objects.all()
+    data = {'prestamos':obtener_prestamos}
+    return render(request, 'senaback/index_prestamo.html', data)
+
+def crear_prestamo(request):
+    prestamo = prestamos.objects.all()
+    elementos_devolutivos = ElementoDevolutivo.objects.all()
+    usuarios = Usuario.objects.all()
+    return render(request, 'senaback/index_main.html', {'elementos_consumibles': elementos_devolutivos, 'usuarios': usuarios})
