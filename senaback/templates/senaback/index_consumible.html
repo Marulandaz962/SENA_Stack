@@ -46,14 +46,15 @@
 </section>
 
 <!-- Formulario para Editar Elemento Consumible -->
-<section id="formulario-editar-elemento" class="modal">
+{% comment %} <section id="formulario-editar-elemento" class="modal">
     <div class="modal-content">
         <h2>Editar elemento</h2>
         <hr>
-        <form id='editConsumible'>
+        <form action="{% url 'Edicion_Elementos_Consumibles' element_cosumible=element_cosumible.id %}" method="POST" id='editConsumible'>
             {% csrf_token %}
+            <input type="hidden" id="element_id" name="element_id" value="{{element_cosumible.id}}">
             <label for="username">Elemento</label>
-            <input type="text" id="username" name="username">
+            <input type="text" id="username" name="username" value="">
             <label for="categoria">Categoria</label>
             <select id="categoria" name="categoria">
                 <option value="Papelería">Papelería</option>
@@ -68,12 +69,13 @@
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion" rows="5" placeholder="Escribe una descripción"></textarea>
             <div class="botones-container">
-                <button class="btn-guardar" id="btn-no-guardar-editar">Cancelar</button>
-                <button type='submit' class="btn-no-guardar" id="btn-guardar-editar">Guardar</button>
+                <button class="btn-no-guardar" id="btn-no-guardar-editar">Cancelar</button>
+                <button type='submit' class="btn-guardar" id="btn-guardar-editar">Guardar</button>
             </div>
         </form>
     </div>
-</section>
+</section> {% endcomment %}
+
 
 
 <!-- Tabla de Elementos Consumibles -->

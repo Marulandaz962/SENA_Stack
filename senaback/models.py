@@ -85,3 +85,19 @@ class Login(models.Model):
     nombre = models.CharField(max_length=50)
     contrasena = models.CharField(max_length=50)
     #token = models.CharField(max_length=50)
+    
+    
+#     def get_list_prestamos():
+#     prestamos_data = list(prestamos.objects.values())
+#     data = {'prestamos': prestamos_data}
+#     return JsonResponse(data)
+
+# def list_prestamos(request):
+#     prestamos_data = prestamos.objects.all()
+#     data = {'prestamos': prestamos_data}
+#     return render(request, 'senaback/index_prestamo.html', data)
+
+# def crear_prestamo(request):
+#     elementos_devolutivos = ElementoDevolutivo.objects.all()
+#     usuarios = Usuario.objects.all()
+#     return render(request, 'senaback/crear_prestamo.html', {'elementos_devolutivos': elementos_devolutivos, 'usuarios': usuarios})

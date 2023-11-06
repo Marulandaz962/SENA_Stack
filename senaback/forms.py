@@ -1,6 +1,7 @@
 from django import forms
 from .models import ElementoConsumible
 from .models import ElementoDevolutivo
+from .models import entrega
 
 class FiltroElementoForm(forms.Form):
     nombre_consumible = forms.CharField(max_length=100, required=False)
@@ -21,3 +22,7 @@ class ElementoDevolutivoForm (forms.ModelForm):
         model = ElementoDevolutivo
         fields = '__all__' 
 
+class EntregaForm(forms.ModelForm):
+    class Meta:
+        model = entrega
+        fields = ['elemento_entrega', 'cantidad', 'responsable_entrega', 'observaciones']

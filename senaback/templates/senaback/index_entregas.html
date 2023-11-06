@@ -20,31 +20,33 @@
 		<div class="modal-content">
 			<p>Entrega</p>
 			<hr>
-			<form method="post" action="{% url 'crear_entrega' %}">
+			<form method="POST" action="{% url 'crear_entrega' %}">
 				{% csrf_token %}	      
-				<label for="elemento">Elemento</label>
-				<select id="elemento" name="elemento" placeholder="Elemento" >
+				<label for="elemento_entrega">Elemento</label>
+				<select id="elemento_entrega" name="elemento_entrega" placeholder="Elemento" required>
 					{% for elemento in elementos_consumibles %}
 						<option value="{{ elemento.id }}">{{ elemento.nombre_consumible }}</option>
 					{% endfor %}
 				</select><br>			
 				<label for="cantidad">Cantidad</label>
-				<input type="number" id="cantidad" name="cantidad">      
-				<label for="responsable">Responsable</label>
-				<select id="responsable" name="responsable" placeholder="Responsable">
+				<input type="number" id="cantidad" name="cantidad" required>
+				<label for="responsable_entrega">Responsable</label>
+				<select id="responsable_entrega" name="responsable_entrega" placeholder="Responsable" required>
 					{% for responsable in usuarios %}
 						<option value="{{ responsable.id }}">{{ responsable.nombre_usuario }}</option>
 					{% endfor %}
 				</select><br>			
 				<label for="descripcion">Descripción:</label>
-				<textarea id="descripcion" name="descripcion" rows="5" placeholder="Escribe una descripción"></textarea>             
+				<textarea id="descripcion" name="descripcion" rows="5" placeholder="Escribe una descripción" required></textarea>             
 				<div class="botones-container">
 					<button class="btn-no-guardar" id="btn-no-guardar-entrega" type="button">Cancelar</button>
 					<button class="btn-guardar" id="btn-guardar-entrega" type="submit">Guardar</button>
 				</div>
 			</form>
 		</div>
-	</section>	
+	</section>
+	
+		
 
 
 	

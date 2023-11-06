@@ -1,13 +1,11 @@
-from django.shortcuts import render, redirect
-from django.http.response import JsonResponse
-from .forms import ElementoConsumibleForm
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http.response import JsonResponse, HttpResponse
+from .forms import *
 from .models import *
-from .forms import ElementoDevolutivoForm
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from .models import Usuario
-
+from django.utils import timezone
+from django.forms import ValidationError
+from .models import ElementoConsumible
 def index(request):
     return render(request, 'senaback/index_main.html')
 
@@ -44,7 +42,6 @@ def list_consumables(request):
     data = {'consumibles':elementos_consumibles}
     return render(request, 'senaback/index_consumible.html', data)
 
-
 def crear_elemento_consumible(request):
     if request.method == 'POST':
         form = ElementoConsumibleForm(request.POST)
@@ -55,56 +52,53 @@ def crear_elemento_consumible(request):
         form = ElementoConsumibleForm()
     return render(request, 'senaback/index_consumible.html', {'form': form})
 
-def edit_form(request, id):
-    consumible = ElementoConsumible.objects.get(id=id)
+
+def Edicion_Elementos_Consumibles(request, id): 
+    # Aqui pueden editar
     if request.method == 'POST':
-        form = ElementoConsumibleForm(request.POST, instance=consumible)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'message': 'Elemento consumible actualizado exitosamente.'})
-        else:
-            return JsonResponse({'error': 'Error en el formulario'}, status=400)
+        _id = request.POST['id']
+        nombre_consumible = request.POST['txtnombre_consumible']
+        categoria = request.POST['txtcategoria']
+        serial = request.POST['txtserial']
+        cantidad_total = request.POST['txtcantidad_total']
+        valor = request.POST['txtvalor']
+        descripcion_elemento = request.POST['txtdescripcion_elemento']
+        
+        element_cosumible = ElementoConsumible.objects.get(id=_id)
+        element_cosumible.nombre_consumible = nombre_consumible
+        element_cosumible.categoria = categoria
+        element_cosumible.serial = serial
+        element_cosumible.cantidad_total = cantidad_total
+        element_cosumible.valor = valor
+        element_cosumible.descripcion_elemento = descripcion_elemento
+        element_cosumible.save()
+
+        return redirect('list_consumables')
+    # Aqui pueden obtener y visualizar
     else:
-        form = ElementoConsumibleForm(instance=consumible)
-        return render(request, 'edit_form.html', {'form': form})
+        element_consumible = ElementoConsumible.objects.get(id=id)
+        return render(request, "senaback/editarElementos.html", {"element_cosumible": element_consumible})
 
-
-
-def get_consumable_details(request, consumable_id):
-    consumible = get_object_or_404(ElementoConsumible, id=consumible_id)
-
-    data = {
-        'nombre_consumible': consumible.nombre_consumible,
-        'categoria': consumible.categoria,
-        'serial': consumible.serial,
-        'cantidad_total': consumible.cantidad_total,
-        'valor': consumible.valor,
-        'descripcion_elemento': consumible.descripcion_elemento
-    }
-    
-    return JsonResponse(data)
-
-def update_consumable(request):
+# Eliminar
+def editarElemento(request):
     if request.method == 'POST':
-        consumible_id = request.POST.get('id')
-        consumible = get_object_or_404(ElementoConsumible, id=consumible_id)
+        id = request.POST['txtid']
+        nombre_consumible = request.POST['txtnombre_consumible']
+        categoria = request.POST['txtcategoria']
+        serial = request.POST['txtserial']
+        cantidad_total = request.POST['txtcantidad_total']
+        valor = request.POST['txtvalor']
+        descripcion_elemento = request.POST['txtdescripcion_elemento']
         
-        # Actualiza los campos del elemento consumible
-        consumible.nombre_consumible = request.POST.get('nombre_consumibles')
-        consumible.categoria = request.POST.get('categoria')
-        consumible.serial = request.POST.get('serial')
-        consumible.cantidad_total = request.POST.get('cantidad_total')
-        consumible.valor = request.POST.get('valor')
-        consumible.descripcion_elemento = request.POST.get('descripcion_elemento')
-        
-        try:
-            consumible.full_clean()  # Realiza la validación del modelo
-            consumible.save()  # Guarda el elemento consumible
-            return JsonResponse({'message': 'Elemento consumible actualizado exitosamente.'})
-        except ValidationError as e:
-            return JsonResponse({'error': e.message_dict}, status=400)
-    else:
-        return JsonResponse({'error': 'Método no permitido'}, status=405)
+        element_cosumible = ElementoConsumible.objects.get(id=id)
+        element_cosumible.nombre_consumible = nombre_consumible
+        element_cosumible.categoria = categoria
+        element_cosumible.serial = serial
+        element_cosumible.cantidad_total = cantidad_total
+        element_cosumible.valor = valor
+        element_cosumible.descripcion_elemento = descripcion_elemento
+        element_cosumible.save()
+    return redirect('list_consumables')
 
 #devolutivos
 
@@ -184,43 +178,52 @@ def getlist_entregas(request):
 
 def list_entregas(request):
     entregas = entrega.objects.all()
-    prestamos_tabla
-    data = {'entregas':entregas}
-    return render(request, 'senaback/index_entregas.html', data)
-
-def crear_entrega(request):
-    return render(request, 'senaback/index_entregas.html')
     elementos_consumibles = ElementoConsumible.objects.all()
     usuarios = Usuario.objects.all()
     data = {'elementos_consumibles':elementos_consumibles , 'entregas':entregas,'usuarios': usuarios }
     return render(request, 'senaback/index_entregas.html', data)
-    main
+
+from django.utils import timezone
 
 def crear_entrega(request):
+    if request.method == 'POST':
+        form = EntregaForm(request.POST)
+        if form.is_valid():
+            elemento_entrega_id = request.POST.get('elemento')  # Cambiar a 'elemento' para coincidir con el nombre del campo en el formulario HTML
+            cantidad_entregada = request.POST.get('cantidad')
+            responsable_entrega_id = request.POST.get('responsable')  # Cambiar a 'responsable' para coincidir con el nombre del campo en el formulario HTML
+
+            try:
+                elemento_entrega = ElementoConsumible.objects.get(pk=elemento_entrega_id)
+                responsable_entrega = Usuario.objects.get(pk=responsable_entrega_id)
+            except ElementoConsumible.DoesNotExist:
+                return HttpResponse("Error: Elemento de entrega no válido")
+            except Usuario.DoesNotExist:
+                return HttpResponse("Error: Responsable de entrega no válido")
+
+            if int(cantidad_entregada) > elemento_entrega.cantidad_total:
+                print("Error: La cantidad entregada excede la cantidad total en stock")
+                return HttpResponse("Error: La cantidad entregada excede la cantidad total en stock")
+
+            # Establecer la fecha de entrega en el momento actual
+            entrega_nueva = form.save(commit=False)
+            entrega_nueva.elemento_entrega = elemento_entrega
+            entrega_nueva.responsable_entrega = responsable_entrega
+            entrega_nueva.fecha_Entrega = timezone.now()
+
+            elemento_entrega.cantidad_total -= int(cantidad_entregada)
+            elemento_entrega.save()
+            entrega_nueva.save()
+            return redirect('list_entregas')
+        else:
+            print("Error en el formulario:", form.errors)  # Imprimir errores de validación del formulario
+    else:
+        form = EntregaForm()
+
     entregas = entrega.objects.all()
     elementos_consumibles = ElementoConsumible.objects.all()
     usuarios = Usuario.objects.all()
-    prestamos_tabla
-    return render(request, 'senaback/index_main.html', {'elementos_consumibles': elementos_consumibles, 'usuarios': usuarios})
-
-# Préstamos
-
-def get_list_prestamos(request):
-    prestamo = list(prestamos.objects.values())
-    data = {'prestamos':prestamo}
-    return JsonResponse(data)
-
-def list_prestamos(request):
-    obtener_prestamos = prestamos.objects.all()
-    data = {'prestamos':obtener_prestamos}
-    return render(request, 'senaback/index_prestamo.html', data)
-
-def crear_prestamo(request):
-    prestamo = prestamos.objects.all()
-    elementos_devolutivos = ElementoDevolutivo.objects.all()
-    usuarios = Usuario.objects.all()
-    return render(request, 'senaback/index_main.html', {'elementos_consumibles': elementos_devolutivos, 'usuarios': usuarios})
-    data = {'elementos_consumibles':elementos_consumibles , 'entregas':entregas,'usuarios': usuarios }
+    data = {'elementos_consumibles': elementos_consumibles, 'entregas': entregas, 'usuarios': usuarios, 'form': form}
     return render(request, 'senaback/index_entregas.html', data)
 # # Usuarios
 # def crear_entrega(request):
@@ -234,4 +237,18 @@ def crear_prestamo(request):
 #         usuarios = Usuario.objects.all()
         
     # return render(request, 'senaback/index_entregas.html', {'elementos_consumibles': elementos_consumibles, 'usuarios': usuarios})
-   main
+
+def get_list_prestamos():
+    prestamos_data = list(prestamos.objects.values())
+    data = {'prestamos': prestamos_data}
+    return JsonResponse(data)
+
+def list_prestamos(request):
+    prestamos_data = prestamos.objects.all()
+    data = {'prestamos': prestamos_data}
+    return render(request, 'senaback/index_prestamo.html', data)
+
+def crear_prestamo(request):
+    elementos_devolutivos = ElementoDevolutivo.objects.all()
+    usuarios = Usuario.objects.all()
+    return render(request, 'senaback/crear_prestamo.html', {'elementos_devolutivos': elementos_devolutivos, 'usuarios': usuarios})
