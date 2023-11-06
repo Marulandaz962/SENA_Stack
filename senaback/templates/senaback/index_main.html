@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,7 +28,7 @@
                 <a href="{% url 'index' %}">  <h1>Sistema de Gestión de Inventario</h1> </a>
             </div>
             <div id="sesion">
-                <a href="{% url "login" %}">
+                <a href="{% url "logout" %}">
                     <div id="cerrar-sesion-img">
                         <img src="{% static 'senaback/img/cerrar-sesion.svg' %}" alt="">
                     </div>
@@ -55,9 +56,9 @@
 			</li>
             <li><div class="icono"><img src="{% static 'senaback/img/opciones.svg' %}"></div><a href="#">Opciones</a>
                 <ul>
-                    <li><a href="#">Ver perfil</a></li>
+                    <li><a href="{% url 'usuario' %}">Ver perfil</a></li>
                     {% comment %} <li><a href="#">Editar perfil</a></li> {% endcomment %}
-                    <li><a href="{% url "login" %}">Cerrar Sesión</a></li>
+                    <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
                 </ul>
             </li>
         </ul>

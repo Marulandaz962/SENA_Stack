@@ -5,7 +5,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.login, name="login"),
+    path('', views.login_view, name="login"),
+    path('logout/', views.logout_view, name='logout'),
     path('index/', views.index, name="index"),  
     # path('edit/<int:id>/', views.edit_form, name="edit_consumible"),  
     path('elementos_consumibles/', views.list_consumables, name='elementos_consumibles'),
@@ -27,4 +28,7 @@ urlpatterns = [
     path('getlist_prestamos/', views.get_list_prestamos, name="getlist_prestamos"),
     path('list_prestamos/', views.list_prestamos, name="list_prestamos"),
     path('crear_prestamo/', views.crear_prestamo, name='crear_prestamo'),
+        
+    path('usuario/', views.usuario, name="usuario"),
+    path('editar_usuario/', views.editar_usuario, name="editar_usuario"),
 ]   

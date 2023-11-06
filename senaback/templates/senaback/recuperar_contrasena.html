@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html> 
 <html lang="en"> 
     <head>
@@ -5,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Login S.G.I</title>
-        <link href="{% static 'senaback/css/estilo_index.css' %}" rel="stylesheet">
+        <link href="{% static 'senaback/css/estiloss.css' %}" rel="stylesheet">
     </head>
 
 <body class="hidden">
@@ -25,7 +27,7 @@
                     <h2>Recuperar Contraseña:</h2>
                     <br>
                     <div class="logo" style="align-items: center;">
-                        <img src="img/bloquear.png" alt="">
+                        <img src="{% static 'senaback/img/candado_abierto.svg' %}" alt="">
                     </div>
                     <br>
                     <label for="username">Ingrese su número de documento:</label>

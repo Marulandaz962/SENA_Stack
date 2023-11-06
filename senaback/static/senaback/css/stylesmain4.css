@@ -70,7 +70,6 @@ section {
     text-decoration: none;
 }
 
-
 #botones-seccion-crear{
     display: flex;
     align-items: flex-start;
@@ -157,17 +156,7 @@ border-radius: 5px;
 border: 0.5px solid;
 height: 21px;
 }
-/* Ajusta el ancho de los elementos select */
-.modal-content select {
-    width: 60%; /* O el valor que desees */
-    margin-bottom: 10px; /* Espacio entre los elementos select */
-}
 
-.modal-content select{
-    width: 60%; /* Todos los inputs tendrán el mismo ancho del 100% */
-    border-radius: 5px;
-
-}  
 
 #tipo-elemento,#estado{
     width: 60%; 
@@ -179,7 +168,7 @@ height: 21px;
 
 
 .btn-no-guardar{
-    background-color:red;  /* Color de fondo */
+    background-color: #4caf50; /* Color de fondo */
     color: white; /* Color del texto */
     border: none; /* Sin borde */
     padding: 10px 20px; /* Espaciado interno */
@@ -187,7 +176,7 @@ height: 21px;
     cursor: pointer; /* Cambiar el cursor al pasar el mouse */
 }
 .btn-guardar{
-    background-color: #4caf50;  /* Color de fondo */
+    background-color: #f44336; /* Color de fondo */
     color: white; /* Color del texto */
     border: none; /* Sin borde */
     padding: 10px 20px; /* Espaciado interno */
@@ -222,6 +211,7 @@ height: 21px;
     font-size: 15px;
     margin-bottom: 10px;
     resize: none; /* Evita que el usuario pueda cambiar el tamaño */
+    overflow: hidden; /* Oculta las barras de desplazamiento */
     height: auto; /* Permite que el textarea ajuste su altura automáticamente */
     background-color: rgb(245, 244, 244);
     border-radius: 5px;

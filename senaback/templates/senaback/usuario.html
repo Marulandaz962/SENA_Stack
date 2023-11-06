@@ -1,0 +1,97 @@
+{% extends "senaback/index_main.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'senaback/css/usuario.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+<section class="secciones-usuario">
+<form action="">
+    <div class="horizontal-usuario">
+        <div class="foto-de-perfil">
+            <img src="{% static 'senaback/img/usuarios.svg' %}" alt="">
+        </div>
+        <div>
+            <h1>{Nombre de Usuario}</h1>
+        </div>
+        <a href="{% url 'editar_usuario' %}" class="boton-editar-perfil-link">
+            <div class="boton-editar-perfil">
+                Editar Perfil
+            </div>
+        </a>
+    </div>
+    <div class="info-usuario">
+        <div>
+            <h1>Información del Usuario</h1>
+        </div>
+        <div class="info-detallada">
+            <div>
+                <label for="nombre">Nombre</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="apellido_1">Primer Apellido</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="apellido_1">Segundo Apellido</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Tipo de Documento</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Número de Documento</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Correo</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Correo Mi Sena</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Dirección</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Teléfono 1</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Teléfono 2</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Tipo Contrato</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Fecha Inicio de Contrato</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Fecha Fin de Contrato</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Contraseña Actual</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Nueva Contraseña</label>
+                <p></p>
+            </div>
+            <div>
+                <label for="">Repetir Contraseña</label>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</form>
+</section>
+{% endblock content %}

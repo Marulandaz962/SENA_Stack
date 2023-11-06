@@ -1,48 +1,57 @@
 {% extends "./index_main.html" %}
 
-{% block title %} Edicion del Elemento {% endblock %}
+{% block tittle %}Elementos consumibles Edición {% endblock %}
 {% load static %}
 {% block css %}
     <link href="{% static 'senaback/css/stylesmain4.css' %}" rel="stylesheet">
 {% endblock css %}
 {% block content %}
+<br>
+<br>
+<br>
 <div class="row">
-
     <div class="col-md-4 offset-md-4">
-        <h2>Edición de Curso</h2>
+        <h2>Edición de Elemento</h2>
         <div class="card">
             <div class="card-body">
                 <form action="." method="POST">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" name="id" value="{{ element_cosumible.id }}" class="form-control" placeholder="txtid" readonly required>
+                        <input type="text" name="id" value="{{ element_cosumible.id }}" class="form-control" placeholder="txtid" readonly required hidden>
                     </div>
                     <div class="form-group">
+                        <label for="nombre_consumible">Elemento:</label>
                         <input type="text" name="txtnombre_consumible" value="{{ element_cosumible.nombre_consumible }}" class="form-control" placeholder="Nombre" maxlength="50" required>
                     </div>
                     <div class="form-group">
+                        <label for="categoria">Categoria</label>
                         <input type="text" name="txtcategoria" value="{{ element_cosumible.categoria }}" class="form-control" min="1" max="9" maxlength="50" required>
                     </div>
 
                     <div class="form-group">
+                        <label for="serial">Serial:</label>
                         <input type="text" name="txtserial" value="{{ element_cosumible.serial }}" class="form-control" min="1" max="9" maxlength="50" required>
                     </div>
 
                     <div class="form-group">
+                        <label for="cantidad_total">Cantidad:</label>
                         <input type="text" name="txtcantidad_total" value="{{ element_cosumible.cantidad_total }}" class="form-control" min="1" max="9" maxlength="50" required>
                     </div>
 
                     <div class="form-group">
+                        <label for="valor">Valor unitario:</label>
                         <input type="text" name="txtvalor" value="{{ element_cosumible.valor }}" class="form-control" min="1" max="9" maxlength="50" required>
                     </div>
 
                     <div class="form-group">
+                        <label for="descripcion_elemento">Descripción:</label>
                         <input type="text" name="txtdescripcion_elemento" value="{{ element_cosumible.descripcion_elemento }}" class="form-control" min="1" max="9" maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
-                    </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success text-white my-2 py-2">Guardar</button>
+                        </div>
+                    </div>                                    
                 </form>
             </div>
         </div>

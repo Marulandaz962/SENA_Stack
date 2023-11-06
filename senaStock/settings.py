@@ -107,3 +107,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'  
+
+LOGIN_URL = 'login'  # URL a la que redirigir a los usuarios no autenticados
+LOGIN_REDIRECT_URL = 'inicio'  # URL a la que redirigir a los usuarios después de iniciar sesión

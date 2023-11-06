@@ -1,0 +1,95 @@
+{% extends "senaback/index_main.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'senaback/css/usuario.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+<section class="secciones-usuario">
+    <div class="horizontal-usuario">
+        <div class="foto-de-perfil">
+            <img src="{% static 'senaback/img/usuarios.svg' %}" alt="">
+        </div>
+        <div>
+            <h1>{Nombre de Usuario}</h1>
+        </div>
+        <a href="{% url 'usuario' %}" class="boton-editar-perfil-link">
+            <div class="boton-editar-perfil">
+                Finalizar edición
+            </div>
+        </a>
+    </div>
+    <div class="info-usuario">
+        <div>
+            <h1>Editar Información</h1>
+        </div>
+        <div class="info-detallada">
+            <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre">
+            </div>
+            <div>
+                <label for="apellido_1">Primer Apellido</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="apellido_1">Segundo Apellido</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Tipo de Documento</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Número de Documento</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Correo</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Correo Mi Sena</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Dirección</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Teléfono 1</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Teléfono 2</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Tipo Contrato</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Fecha Inicio de Contrato</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Fecha Fin de Contrato</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Contraseña Actual</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Nueva Contraseña</label>
+                <input type="text" id="" name="">
+            </div>
+            <div>
+                <label for="">Repetir Contraseña</label>
+                <input type="text" id="" name="">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

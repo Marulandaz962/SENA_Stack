@@ -6,17 +6,58 @@ from django.db.models import Q
 from django.utils import timezone
 from django.forms import ValidationError
 from .models import ElementoConsumible
+
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('index')  # Redirigir a usuarios autenticados a la página de inicio
+
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('index')
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'senaback/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+
+@login_required
 def index(request):
     return render(request, 'senaback/index_main.html')
 
-def login(request):
-    return render(request, "senaback/login.html")
+@login_required
+def inicio(request):
+    # Tu vista de la página de inicio
+    return render(request, 'senaback/index.html')
 
+@login_required
 def otorgar_elemento(request):
     return render(request, "senaback/otorgar_elemento.html")
 
+@login_required
+def usuario(request):
+    return render(request, "senaback/usuario.html")
+
+@login_required
+def editar_usuario(request):
+    return render(request, "senaback/editar_usuario.html")
 
 # Consumibles
+@login_required
 def obtener_elementos_consumibles(request):
     elementos_consumibles = ElementoConsumible.objects.all()
     data = []
@@ -32,16 +73,19 @@ def obtener_elementos_consumibles(request):
         })
     return render(request, 'senaback/index_consumible.html', {'elementos_consumibles': elementos_consumibles})
 
+@login_required
 def get_list_consumables(request):
     elementos_consumibles = list(ElementoConsumible.objects.values())
     data = {'consumibles':elementos_consumibles}
     return JsonResponse(data)
 
+@login_required
 def list_consumables(request):
     elementos_consumibles = ElementoConsumible.objects.all()
     data = {'consumibles':elementos_consumibles}
     return render(request, 'senaback/index_consumible.html', data)
 
+@login_required
 def crear_elemento_consumible(request):
     if request.method == 'POST':
         form = ElementoConsumibleForm(request.POST)
@@ -53,6 +97,7 @@ def crear_elemento_consumible(request):
     return render(request, 'senaback/index_consumible.html', {'form': form})
 
 
+@login_required
 def Edicion_Elementos_Consumibles(request, id): 
     # Aqui pueden editar
     if request.method == 'POST':
@@ -80,6 +125,7 @@ def Edicion_Elementos_Consumibles(request, id):
         return render(request, "senaback/editarElementos.html", {"element_cosumible": element_consumible})
 
 # Eliminar
+@login_required
 def editarElemento(request):
     if request.method == 'POST':
         id = request.POST['txtid']
@@ -102,6 +148,7 @@ def editarElemento(request):
 
 #devolutivos
 
+@login_required
 def obtener_elementos_devolutivos(request):
     elementos_devolutivos = ElementoDevolutivo.objects.all()
     data = []
@@ -118,6 +165,7 @@ def obtener_elementos_devolutivos(request):
     return render(request, 'senaback/index_devolutivos.html', {'elemento_devolutivos': elementos_devolutivos})
 
 
+@login_required
 def listar_devolutivos(request):
     filtro = request.GET.get('filtro', '')  # Obtener el valor del filtro de la URL
     # Utiliza el operador Q para realizar consultas complejas
@@ -130,6 +178,7 @@ def listar_devolutivos(request):
     return render(request, 'senaback/index_devolutivos.html', {'elemento_devolutivos': elementos_devolutivos, 'filtro': filtro})
 
 
+@login_required
 def crear_elemento_devolutivo(request):
     if request.method == 'POST':
         form = ElementoDevolutivoForm(request.POST)
@@ -145,6 +194,7 @@ def crear_elemento_devolutivo(request):
 
 # Entregas
 
+@login_required
 def obtener_entregas(request):
     entregas = entrega.objects.all()
     data = []
@@ -158,6 +208,7 @@ def obtener_entregas(request):
         })
     return render(request, 'senaback/index_entregas.html', {'entregas': entregas})
 
+@login_required
 def obtener_entregas(request):
     entregas = entrega.objects.all()
     data = []
@@ -171,11 +222,13 @@ def obtener_entregas(request):
         })
     return render(request, 'senaback/index_entregas.html', {'entregas': entregas})
 
+@login_required
 def getlist_entregas(request):
     entregas = list(entrega.objects.values())
     data = {'entregas':entregas}
     return JsonResponse(data)
 
+@login_required
 def list_entregas(request):
     entregas = entrega.objects.all()
     elementos_consumibles = ElementoConsumible.objects.all()
@@ -185,6 +238,7 @@ def list_entregas(request):
 
 from django.utils import timezone
 
+@login_required
 def crear_entrega(request):
     if request.method == 'POST':
         form = EntregaForm(request.POST)
@@ -226,6 +280,7 @@ def crear_entrega(request):
     data = {'elementos_consumibles': elementos_consumibles, 'entregas': entregas, 'usuarios': usuarios, 'form': form}
     return render(request, 'senaback/index_entregas.html', data)
 # # Usuarios
+# @login_required
 # def crear_entrega(request):
 #     if request.method == 'GET':
 #         elementos_consumibles = ElementoConsumible.objects.all()
@@ -238,16 +293,19 @@ def crear_entrega(request):
         
     # return render(request, 'senaback/index_entregas.html', {'elementos_consumibles': elementos_consumibles, 'usuarios': usuarios})
 
+@login_required
 def get_list_prestamos():
     prestamos_data = list(prestamos.objects.values())
     data = {'prestamos': prestamos_data}
     return JsonResponse(data)
 
+@login_required
 def list_prestamos(request):
     prestamos_data = prestamos.objects.all()
     data = {'prestamos': prestamos_data}
     return render(request, 'senaback/index_prestamo.html', data)
 
+@login_required
 def crear_prestamo(request):
     elementos_devolutivos = ElementoDevolutivo.objects.all()
     usuarios = Usuario.objects.all()
