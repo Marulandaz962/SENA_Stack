@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http.response import JsonResponse, HttpResponse
-from .forms import *
-from .models import *
+from .forms import * 
+from .models import * 
 from django.db.models import Q
 from django.utils import timezone
 from django.forms import ValidationError
@@ -34,6 +34,11 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+def recuperar(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:
+        return render(request, "senaback/recuperar_contrasena.html")
 
 @login_required
 def index(request):

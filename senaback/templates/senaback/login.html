@@ -25,6 +25,7 @@
 
 
             <form method="POST" action="{% url 'login' %}">
+                
                     {% csrf_token %}
                     <h2>Acceder:</h2>
                     <label for="username">Rol:</label>
@@ -36,7 +37,10 @@
                     <input type="password" id="password" name="password">
                     <input type="submit" id="botonlogin" name="Ingresar">
                     <br>
+                    <div class="recuperar-centrado">
+                        <a href="{% url 'recuperar' %}" class="sin-link"><p>¿Olvidó su Contraseña?</p></a>
                     <br>
+                </div>
                 </form>
         </section>
 <footer id="contacto">

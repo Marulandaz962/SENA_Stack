@@ -8,6 +8,8 @@ urlpatterns = [
     path('', views.login_view, name="login"),
     path('logout/', views.logout_view, name='logout'),
     path('index/', views.index, name="index"),  
+        path('recuperar/', views.recuperar, name="recuperar"),
+    
     # path('edit/<int:id>/', views.edit_form, name="edit_consumible"),  
     path('elementos_consumibles/', views.list_consumables, name='elementos_consumibles'),
     path('getlist_consumables/', views.get_list_consumables, name="get_list_consumables"),

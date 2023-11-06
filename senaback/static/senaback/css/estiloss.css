@@ -189,4 +189,13 @@ form button {
   text-align: center;
 }
 
+.recuperar-centrado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.sin-link {
+  text-decoration: none;
+  color: black;
+}
