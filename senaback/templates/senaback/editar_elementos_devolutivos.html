@@ -1,0 +1,62 @@
+{% extends "./index_main.html" %}
+
+{% block tittle %}Elementos Devolutivos Edición {% endblock %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'senaback/css/stylesmain5.css' %}" rel="stylesheet">
+{% endblock css %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edición de Elemento</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="id" value="{{ element_devolutivo.id }}" class="form-control" placeholder="id" readonly required hidden>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre_devolutivo">Elemento:</label>
+                        <input type="text" name="txt_nombre_devolutivo" value="{{ element_devolutivo.nombre_devolutivo }}" class="form-control" placeholder="nombre" maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria_devolutivo">Categoria</label>
+                        <input type="text" name="txt_categoria_devolutivo" value="{{ element_devolutivo.categoria_devolutivo }}" class="form-control" placeholder="categoria"  maxlength="50" required>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label for="serial">serial:</label>
+                        <input type="text" name="txt_serial" value="{{ element_devolutivo.serial }}" class="form-control" placeholder="serial" maxlength="50" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serial_sena">serial Sena:</label>
+                        <input type="text" name="txt_serial_sena" value="{{ element_devolutivo.serial_sena }}" class="form-control" placeholder="serial sena" maxlength="50" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="valor_devolutivo">Valor</label>
+                        <input type="text" name="txt_valor_devolutivo" value="{{ element_devolutivo.valor_devolutivo }}" class="form-control" placeholder="valor devolutivo"  maxlength="50" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion_devolutivo">Descripción:</label>
+                        <input type="text" name="txt_descripcion_devolutivo" value="{{ element_devolutivo.descripcion_devolutivo }}" class="form-control" placeholder="descripcion devolutivo" maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success text-white my-2 py-2">Guardar</button>
+                        </div>
+                    </div>                                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

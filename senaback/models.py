@@ -7,9 +7,9 @@ class ElementoDevolutivo(models.Model):
     nombre_devolutivo = models.CharField(max_length=25, unique=True)
     categoria_devolutivo = models.CharField(max_length=20)
     serial  = models.CharField(max_length=20)
-    serial_sena  = models.CharField(max_length=20)
+    serial_sena = models.CharField(max_length=20)
+    valor_devolutivo = models.IntegerField()
     descripcion_devolutivo =  models.CharField(max_length= 16)
-    valor = models.IntegerField()
 
     def __str__(self):
         return self.nombre_devolutivo
@@ -18,7 +18,6 @@ class ElementoDevolutivo(models.Model):
 class ElementoConsumible(models.Model):
     nombre_consumible =  models.CharField(max_length=15, unique=True)
     categoria = models.CharField(max_length=25)
-    serial = models.CharField(max_length=20, unique=True)
     cantidad_total = models.CharField(max_length=15)
     valor = models.IntegerField()
     descripcion_elemento =  models.CharField(max_length=30)

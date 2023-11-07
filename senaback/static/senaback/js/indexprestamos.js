@@ -31,7 +31,7 @@ const initDataTable = async () => {
 };
 const listPrestamos = async () => {
     try {
-        const response = await fetch("http://127.0.0.1:8000/senaback/getlist_prestamos/");
+        const response = await fetch("http://127.0.0.1:8000/senaback/getlist_devolutivos/");
         const data = await response.json();        
         let content = ``;
         data.prestamos.forEach((prestamos, index) => {                        
@@ -58,7 +58,6 @@ const listPrestamos = async () => {
 
 window.addEventListener("load", async () => {
     await initDataTable();
-    
 });
 
 

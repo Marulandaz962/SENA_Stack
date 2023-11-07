@@ -1,5 +1,5 @@
 
-  //------------------------ Crear elemento -------------------------------------------------------
+  //------------------------ Crear elemento Devolutivo-------------------------------------------------------
   
 document.addEventListener("DOMContentLoaded", function () {
 // Obtén el modal y los botones de abrir y cerrar
@@ -42,3 +42,6 @@ window.addEventListener('click', function(event) {
 });
 
 });
+
+
+

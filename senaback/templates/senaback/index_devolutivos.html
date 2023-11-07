@@ -1,214 +1,91 @@
 {% extends "senaback/index_main.html" %}
     {% load static %}
-    <title>Document</title>
-    <!-- Styles -->
     {% block css %}
-    <link href="{% static 'senaback/css/stylesmain4.css' %}" rel="stylesheet">
+    <link href="{% static 'senaback/css/stylesmain5.css' %}" rel="stylesheet">
     {% endblock css %}
+    {% block tittle %}Elementos Devolutivos {% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <!-- DataTable.js -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+</head>
+<body>
 {% block content %}
-<section id="formulario-crear-elemento" class="modal">
+<!-- Formulario de Crear Elemento Devolutivo-->
+<section id="formulario-crear-elemento_devolutivo" class="modal">
     <div class="modal-content">
-        <span class="close-btn" id="close-modal">&times;</span>
+        <span class="close-btn" id="close-modal-devolutivo">&times;</span>
         <h2>Crear elemento</h2>
         <hr>
-        <form method="get" action="{% url 'obtener_elementos_devolutivos' %}">
-
+        <form method="post" action="{% url 'crear_elemento_devolutivo' %}">
             {% csrf_token %}
             <label for="nombre_devolutivo">Elemento</label>
-            <input type="text" id="nombre" name="nombre">
+            <input type="text" id="nombre_devolutivo" name="nombre_devolutivo">
             <label for="categoria_devolutivo">Categoria</label>
-            <input type="text" id="categoria" name="categoria">
-            <label for="serial_devolutivo">Serial:</label>
-            <input type="text" id="serial" name="serial">
-            <label for="cantidad_devolutivo_total">Cantidad:</label>
-            <input type="number" id="cantidad_tota    l" name="cantidad_total">
-            <label for="valor_devolutivo">Valor unitario:</label>
-            <input type="text" id="valor" name="valor">
-            <label for="descripcion_devolutivo">Descripción:</label>
-            <textarea id="descripcion_elemento" name="descripcion_elemento" rows="5" placeholder="Escribe una descripción"></textarea>
-            <div class="botones-container">
-                <button class="btn-guardar" id="btn-no-guardar-crear" type="button">Cancelar</button>
-                <button class="btn-no-guardar" id="btn-guardar-crear" type="submit">Guardar</button>
-            </div>
-        </form>
-    </div>
-</section>
-
-<!-- Formulario para Editar Elemento Devolutivos -->
-<section id="formulario-editar-elemento" class="modal">
-    <div class="modal-content">
-        <h2>Editar elemento</h2>
-        <hr>
-        <form>
-            <label for="username">Elemento</label>
-            <input type="text" id="username" name="username">
-            <label for="categoria">Categoria</label>
-            <input type="text" id="categoria" name="categoria">
+            <select id="categoria_devolutivo" name="categoria_devolutivo">
+                <option value="Tecnologia">Tecnologia</option>
+                <option value="Tecnologia2">Tecnologia2</option>
+            </select><br>
             <label for="serial">Serial:</label>
             <input type="text" id="serial" name="serial">
-            <label for="cantidad">Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad">
+            <label for="serial_sena">Serial SENA:</label>
+            <input type="text" id="serial_sena" name="serial_sena">
             <label for="valor">Valor unitario:</label>
             <input type="text" id="valor" name="valor">
-            <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" rows="5" placeholder="Escribe una descripción"></textarea>
+            <label for="descripcion_devolutivo">Descripción:</label>
+            <textarea id="descripcion_devolutivo" name="descripcion_devolutivo" rows="5" placeholder="Escribe una descripción"></textarea>
             <div class="botones-container">
-                <button class="btn-guardar" id="btn-no-guardar-editar">Cancelar</button>
-                <button class="btn-no-guardar" id="btn-guardar-editar">Guardar</button>
+                <button class="btn-no-guardar" id="btn-no-guardar-devolutivo" type="button">Cancelar</button>
+                <button class="btn-guardar" id="btn-guardar-devolutivo" type="submit">Guardar</button>
             </div>
         </form>
     </div>
 </section>
 
+
 <!-- Tabla de Elementos Devolutivos -->
-<section>
-    <div id="titulo">
-        <h1>Inventario de Elementos Devolutivos</h1>
-        <form method="get" action="{% url 'obtener_elementos_devolutivos' %}">
+    <div class="container mt-4">
+        <h1>Inventario de elementos Devolutivos</h1>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
+                <table id="datatables-devolutivos" class="table table-striped">
+                    <caption>
+                        Inventario de Elementos Devolutivos
+                    </caption>
+                    <thead class="thead-light">                        
+                            <th class="centered">id</th hidden>
+                            <th class="centered">Elemento</th>
+                            <th class="centered">Categoria</th>
+                            <th class="centered">Serial</th>
+                            <th class="centered">Serial SENA</th>
+                            <th class="centered">Descripcion</th>
+                            <th class="centered">Valor</th>
+                            <th class="centered">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody_devolutivos">
 
-            <div id="filtrar">
-                <input type="text" name="filtro" placeholder="Filtrar por..." value="{{ filtro }}">
-                <button type="submit">Filtrar</button>
+                    </tbody>
+                </table>
             </div>
-        </form>
+        </div>
     </div>
-    <table id="prueba-tabla">
-        <thead>
-            <tr id="tabla-titulo">
-                <th>ID</th>
-                <th>Elemento</th>
-                <th>Categoria</th>
-                <th>Serial</th>
-                <th>Cantidad</th>
-                <th>Valor</th>
-                <th>Descripcion</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for elemento in elemento_devolutivos %}
-            <tr class="tabla-contenido">
-                <td>{{ elemento.id }}</td>
-                <td>{{ elemento.nombre_devolutivo }}</td>
-                <td>{{ elemento.categoria_devolutivo }}</td>
-                <td>{{ elemento.serial_devolutivo }}</td>
-                <td>{{ elemento.cantidad_devolutivo_total }}</td>
-                <td>{{ elemento.valor_devolutivo }}</td>
-                <td>{{ elemento.descripcion_devolutivo }}</td>
-                <td>
-                    <div class="tabla-contenido-boton">
-                        <a href="#" id="formulario-editar-elemento-link"  data-formulario="editar-elemento">
-                            <img src="{% static 'senaback/img/usuarios.svg' %}" alt="Editar">
-                        </a>
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        <div id="paginacion">
-            <ul>
-                <li><a href="#" id="anterior">
-                </a></li>
-                <li><a href="#" class="pagina-actual">1</a></li>
-                <li><a href="#" class="pagina">2</a></li>
-                <li><a href="#" class="pagina">3</a></li>
-                <li><a href="#" id="siguiente">
-                </a></li>
-            </ul>
-        </div>
-        
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const tabla = document.getElementById("prueba-tabla");
-            const filas = tabla.getElementsByTagName("tr");
-            const filasPorPagina = 10;
-            let paginaActual = 1;
-        
-            function mostrarPagina(pagina) {
-            for (let i = 1; i < filas.length; i++) {
-                filas[i].style.display = "none";
-            }
-        
-            const inicio = (pagina - 1) * filasPorPagina + 1;
-            const fin = inicio + filasPorPagina;
-        
-            for (let i = inicio; i < fin; i++) {
-                if (filas[i]) {
-                filas[i].style.display = "";
-                }
-            }
-            }
-        
-            function actualizarPaginacion() {
-            const paginas = Math.ceil((filas.length - 1) / filasPorPagina);
-        
-            const paginacion = document.getElementById("paginacion");
-            paginacion.innerHTML = `<ul>
-                <li><a href="#" id="anterior">&laquo; Anterior</a></li>
-            </ul>`;
-        
-            for (let i = 1; i <= paginas; i++) {
-                const pagina = document.createElement("li");
-                pagina.innerHTML = `<a href="#" class="pagina">${i}</a>`;
-                paginacion.querySelector("ul").appendChild(pagina);
-            }
-        
-            paginacion.innerHTML += `<ul>
-                <li><a href="#" id="siguiente">Siguiente &raquo;</a></li>
-            </ul>`;
-        
-            const paginasElement = document.querySelectorAll(".pagina");
-            paginasElement[paginaActual - 1].classList.add("pagina-actual");
-        
-            paginasElement.forEach((element, index) => {
-                element.addEventListener("click", () => {
-                paginaActual = index + 1;
-                mostrarPagina(paginaActual);
-
-                paginasElement.forEach((el) => el.classList.remove("pagina-actual"));
-                element.classList.add("pagina-actual");
-            });
-            });
-
-            const botonAnterior = document.getElementById("anterior");
-            const botonSiguiente = document.getElementById("siguiente");
-
-            botonAnterior.addEventListener("click", () => {
-                if (paginaActual > 1) {
-                paginaActual--;
-                mostrarPagina(paginaActual);
-
-                paginasElement.forEach((el) => el.classList.remove("pagina-actual"));
-                paginasElement[paginaActual - 1].classList.add("pagina-actual");
-            }
-            });
-
-            botonSiguiente.addEventListener("click", () => {
-            if (paginaActual < paginas) {
-                paginaActual++;
-                mostrarPagina(paginaActual);
-
-                paginasElement.forEach((el) => el.classList.remove("pagina-actual"));
-                paginasElement[paginaActual - 1].classList.add("pagina-actual");
-                }
-            });
-            }
-        
-            mostrarPagina(paginaActual);
-            actualizarPaginacion();
-        });
-        </script>
-            
-    </table>
-        <section id="botones-seccion-crear">
-        <div class="tabla-contenido-botones">
-            <a href="#" id="formulario-crear-elemento-link" >
-            <img src="{% static 'senaback/img/crear.svg'%}" alt="">
-            </a>
-        </div>
+    </div>    
+    <section id="botones-seccion-crear">
+        <button id="abrir-modal-devolutivo">Crear Elemento</button>
     </section> 
-    </section>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- DataTable.js -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{% static 'senaback/js/indexdevolutivos.js' %}"></script>
     <script src="{% static 'senaback/js/Script4.js' %}"></script>
     {% endblock content %}
 </body>

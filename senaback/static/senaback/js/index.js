@@ -41,7 +41,6 @@
 						<td>${consumible.id}</td>
 						<td>${consumible.nombre_consumible}</td>
 						<td>${consumible.categoria}</td>
-						<td>${consumible.serial}</td>
 						<td>${consumible.cantidad_total}</td>
 						<td>${consumible.valor}</td>
 						<td>${consumible.descripcion_elemento}</td>
@@ -52,16 +51,6 @@
 			});
 
 
-			// document.addEventListener("click", (e) => {
-
-			// 	if (e.target && e.target.classList.contains("edit-button")) {
-			// 		const id = e.target.getAttribute("data-id");
-			// 		window.location.href = `/senaback/templates/senaback/editarElementos.html/${id}/`;  
-			// 	}
-
-			// 	window.location.href = `/senaback/templates/senaback/editarElementos.html/${id}/`;
-			// });
-			
 
 			// Agregar contenido a la tabla
 			$("#datatables-consumibles tbody").html(content);

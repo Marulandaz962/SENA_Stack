@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.forms import ValidationError
 from .models import ElementoConsumible
+from .models import ElementoDevolutivo
 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -70,7 +71,6 @@ def obtener_elementos_consumibles(request):
         data.append({
             'id': elemento.id,
             'nombre': elemento.nombre_consumible,
-            'serial': elemento.serial,
             'cantidad': elemento.cantidad_total,
             'valor': elemento.valor,
             'categoria': elemento.categoria,
@@ -109,7 +109,6 @@ def Edicion_Elementos_Consumibles(request, id):
         _id = request.POST['id']
         nombre_consumible = request.POST['txtnombre_consumible']
         categoria = request.POST['txtcategoria']
-        serial = request.POST['txtserial']
         cantidad_total = request.POST['txtcantidad_total']
         valor = request.POST['txtvalor']
         descripcion_elemento = request.POST['txtdescripcion_elemento']
@@ -117,7 +116,6 @@ def Edicion_Elementos_Consumibles(request, id):
         element_cosumible = ElementoConsumible.objects.get(id=_id)
         element_cosumible.nombre_consumible = nombre_consumible
         element_cosumible.categoria = categoria
-        element_cosumible.serial = serial
         element_cosumible.cantidad_total = cantidad_total
         element_cosumible.valor = valor
         element_cosumible.descripcion_elemento = descripcion_elemento
@@ -129,73 +127,69 @@ def Edicion_Elementos_Consumibles(request, id):
         element_consumible = ElementoConsumible.objects.get(id=id)
         return render(request, "senaback/editarElementos.html", {"element_cosumible": element_consumible})
 
-# Eliminar
+
 @login_required
-def editarElemento(request):
-    if request.method == 'POST':
-        id = request.POST['txtid']
-        nombre_consumible = request.POST['txtnombre_consumible']
-        categoria = request.POST['txtcategoria']
-        serial = request.POST['txtserial']
-        cantidad_total = request.POST['txtcantidad_total']
-        valor = request.POST['txtvalor']
-        descripcion_elemento = request.POST['txtdescripcion_elemento']
-        
-        element_cosumible = ElementoConsumible.objects.get(id=id)
-        element_cosumible.nombre_consumible = nombre_consumible
-        element_cosumible.categoria = categoria
-        element_cosumible.serial = serial
-        element_cosumible.cantidad_total = cantidad_total
-        element_cosumible.valor = valor
-        element_cosumible.descripcion_elemento = descripcion_elemento
-        element_cosumible.save()
-    return redirect('list_consumables')
+
 
 #devolutivos
-
 @login_required
-def obtener_elementos_devolutivos(request):
-    elementos_devolutivos = ElementoDevolutivo.objects.all()
-    data = []
-    for elemento in elementos_devolutivos:
-        data.append({
-            'id': elemento.id,
-            'nombre': elemento.nombre_devolutivo,
-            'serial': elemento.serial_devolutivo,
-            'cantidad': elemento.cantidad_devolutivo_total,
-            'valor': elemento.valor_devolutivo,
-            'categoria': elemento.categoria_devolutivo,
-            'descripcion': elemento.descripcion_devolutivo,
-        })
-    return render(request, 'senaback/index_devolutivos.html', {'elemento_devolutivos': elementos_devolutivos})
 
-
-@login_required
-def listar_devolutivos(request):
-    filtro = request.GET.get('filtro', '')  # Obtener el valor del filtro de la URL
-    # Utiliza el operador Q para realizar consultas complejas
-    elementos_devolutivos = ElementoDevolutivo.objects.filter(
-        Q(nombre_devolutivo__icontains=filtro) |  # Filtro por nombre_devolutivo
-        Q(serial_devolutivo__icontains=filtro) |  # Filtro por serial_devolutivo
-        Q(categoria_devolutivo__icontains=filtro)  # Filtro por categoria_devolutivo
-        # Agrega más campos aquí si es necesario
-    )
-    return render(request, 'senaback/index_devolutivos.html', {'elemento_devolutivos': elementos_devolutivos, 'filtro': filtro})
-
-
-@login_required
 def crear_elemento_devolutivo(request):
     if request.method == 'POST':
         form = ElementoDevolutivoForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('index_devolutivos')
-
+            form.save()  # Guardar el nuevo elemento consumible en la base de datos
+            return redirect('list_devolutivos')
     else:
         form = ElementoDevolutivoForm()
-
     return render(request, 'senaback/index_devolutivos.html', {'form': form})
 
+@login_required
+def Edicion_Elementos_Devolutivos(request, id): 
+    # Aqui pueden editar
+    if request.method == 'POST':
+        print("A ver si edita o no")
+        id = request.POST['id']
+        nombre_devolutivo = request.POST['txt_nombre_devolutivo']
+        categoria_devolutivo = request.POST['txt_categoria_devolutivo']
+        serial = request.POST['txt_serial']
+        serial_sena = request.POST['txt_serial_sena']
+        valor_devolutivo = request.POST['txt_valor_devolutivo']
+        descripcion_devolutivo = request.POST['txt_descripcion_devolutivo']
+        
+        element_devolutivo = ElementoDevolutivo.objects.get(id=id)
+        element_devolutivo.nombre_devolutivo = nombre_devolutivo
+        element_devolutivo.categoria_devolutivo = categoria_devolutivo
+        element_devolutivo.serial = serial
+        element_devolutivo.serial_sena = serial_sena
+        element_devolutivo.valor_devolutivo = valor_devolutivo
+        element_devolutivo.descripcion_devolutivo = descripcion_devolutivo
+        element_devolutivo.save()
+
+        return redirect('list_devolutivos')
+    # Aqui pueden obtener y visualizar
+    else:
+        element_devolutivo = ElementoDevolutivo.objects.get(id=id)
+        return render(request, "senaback/editar_elementos_devolutivos.html", {"element_devolutivo": element_devolutivo})
+
+
+
+
+
+
+
+
+@login_required
+def get_list_devolutivos(request):
+    elementos_devolutivos = list(ElementoDevolutivo.objects.values())
+    data = {'devolutivos':elementos_devolutivos}
+    return JsonResponse(data)
+
+@login_required
+def list_devolutivos(request):
+    elementos_devolutivos = ElementoDevolutivo.objects.all()
+    data = {'devolutivos':elementos_devolutivos}
+    return render(request, 'senaback/index_devolutivos.html', data)
 
 # Entregas
 

@@ -41,17 +41,14 @@
         <ul>
             <li><div class="icono"><img src="{% static 'senaback/img/inventarios.svg' %}"></div><a href="#">Inventarios</a>
                 <ul>
-                    {% comment %} <li><a href="#">Crear elementos</a></li> {% endcomment %}
                     <li><a href="{% url 'list_consumables' %}">Consumibles</a>
-                    <li><a href="{% url 'Listar_devolutivos' %}">Devolutivos</a></li>
-                    <!-- <li><a href="#">Listar usuario</a></li> -->
+                    <li><a href="{% url 'list_devolutivos' %}">Devolutivos</a></li>
                 </ul>
             </li>            
             <li><div class="icono"><img src="{% static 'senaback/img/transacciones.svg' %}"></div><a href="#">Transacciones</a>
 				<ul>
 					<li><a href="{% url "list_entregas" %}">Entregas</a></li>
                     <li><a href="{% url "list_prestamos" %}">Préstamos</a></li>
-					{% comment %} <li><a href="{% url "Listar_Consumibles" %}">Listar entregas</a></li> {% endcomment %}
 				</ul>
 			</li>
             <li><div class="icono"><img src="{% static 'senaback/img/opciones.svg' %}"></div><a href="#">Opciones</a>
