@@ -25,4 +25,5 @@ class ElementoDevolutivoForm (forms.ModelForm):
 class EntregaForm(forms.ModelForm):
     class Meta:
         model = entrega
-        fields = ['elemento_entrega', 'cantidad', 'responsable_entrega', 'observaciones']
+        #fields = ['elemento_entrega', 'cantidad', 'responsable_entrega', 'observaciones']
+        fields = '__all__'

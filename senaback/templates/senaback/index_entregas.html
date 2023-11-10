@@ -25,9 +25,9 @@
 				<label for="elemento_entrega">Elemento</label>
 				<select id="elemento_entrega" name="elemento_entrega" placeholder="Elemento" required>
 					{% for elemento in elementos_consumibles %}
-						<option value="{{ elemento.id }}">{{ elemento.nombre_consumible }}</option>
+						<option value="{{elemento.id}}">{{ elemento.nombre_consumible }}</option>
 					{% endfor %}
-				</select><br>			
+				</select><br>
 				<label for="cantidad">Cantidad</label>
 				<input type="number" id="cantidad" name="cantidad" required>
 				<label for="responsable_entrega">Responsable</label>

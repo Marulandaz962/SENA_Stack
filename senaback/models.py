@@ -18,7 +18,7 @@ class ElementoDevolutivo(models.Model):
 class ElementoConsumible(models.Model):
     nombre_consumible =  models.CharField(max_length=15, unique=True)
     categoria = models.CharField(max_length=25)
-    cantidad_total = models.CharField(max_length=15)
+    cantidad_total = models.IntegerField()
     valor = models.IntegerField()
     descripcion_elemento =  models.CharField(max_length=30)
 
