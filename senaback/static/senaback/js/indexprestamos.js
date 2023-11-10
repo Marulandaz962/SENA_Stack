@@ -45,7 +45,7 @@ const listPrestamos = async () => {
                     <td>${prestamo.fecha_Devolucion}</td>
                     <td>${prestamo.observaciones}</td>
                     <td>${prestamo.estado}</td>                  
-                    <td><a href='/edicion_elemento_devolutivo/${prestamo.id}/' class="btn btn-info edit-button" data-id="${prestamo.id}">Editar</a></td>
+                    <td><a href='/edicion_prestamo/${prestamo.id}/' class="btn btn-info edit-button" data-id="${prestamo.id}">Editar</a></td>
                     </td>
                 </tr>`;
         });

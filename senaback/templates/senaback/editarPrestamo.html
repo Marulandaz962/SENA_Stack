@@ -1,0 +1,44 @@
+{% extends "./index_main.html" %}
+
+{% block tittle %}Prestamos Edición {% endblock %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'senaback/css/stylesmain5.css' %}" rel="stylesheet">
+{% endblock css %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edición de Prestamo</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="." method="POST">
+                    {% csrf_token %}	      
+				<label for="elemento_prestamo">Elemento</label>
+				<select id="elemento_prestamo" name="elemento_prestamo" placeholder="Elemento" required>
+					{% for elemento in elementos_devolutivos %}
+						<option value="{{elemento.id}}">{{ elemento.nombre_devolutivo }}</option>
+					{% endfor %}
+				</select><br>
+				<label for="responsable_entrega">Responsable</label>
+				<select id="responsable_entrega" name="responsable_entrega" placeholder="Responsable" required>
+					{% for responsable in usuarios %}
+						<option value="{{ responsable.id }}">{{ responsable.nombre_usuario }}</option>
+					{% endfor %}
+				</select><br>			
+				<label for="fecha_Devolucion">Fecha de devoluciòn</label>
+				<input type="date" id="fecha_Devolucion" name="fecha_Devolucion"><br>
+				<label for="observaciones">Descripción:</label>
+				<textarea id="observaciones" name="observaciones" rows="5" placeholder="Escribe una descripción" required></textarea>             
+				<div class="botones-container">
+					<button class="btn-no-guardar" id="btn-no-guardar-prestamo" type="button">Cancelar</button>
+					<button class="btn-guardar" id="btn-guardar-prestamo" type="submit">Guardar</button>
+				</div>                               
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

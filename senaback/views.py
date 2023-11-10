@@ -382,5 +382,9 @@ def crear_prestamo(request):
     return render(request, 'senaback/index_prestamo.html', data)
 
 
+@login_required
+def edicion_prestamo(request): 
+    return render(request, "senaback/editarPrestamo.html")
+
 
 

@@ -23,7 +23,7 @@
 		<div class="modal-content">
 			<p>Prestamo</p>
 			<hr>
-			<form method="POST" action="{% url 'crear_prestamo' %}">
+			<form method="POST" action="{% url 'crear_prestamo'%}">
 				{% csrf_token %}	      
 				<label for="elemento_prestamo">Elemento</label>
 				<select id="elemento_prestamo" name="elemento_prestamo" placeholder="Elemento" required>
