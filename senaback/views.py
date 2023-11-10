@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.forms import ValidationError
 from .models import ElementoConsumible
 from .models import ElementoDevolutivo
-
+from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
@@ -247,8 +247,7 @@ def crear_entrega(request):
                     return False
             return True
             
-        
-        
+
         cantidad_entregada = request.POST.get('cantidad')
         elemento_entrega_id = request.POST.get('elemento_entrega')
         responsable_entrega_id = request.POST.get('responsable_entrega')
@@ -263,73 +262,33 @@ def crear_entrega(request):
         if evaluar(evaluacion):
             cantidad_entregada = int(request.POST.get('cantidad'))
             elemento_entrega_id = request.POST.get('elemento_entrega')
-            responsable_entrega_id = request.POST.get('responsable_entrega')  # Cambiar a 'responsable' para coincidir con el nombre del campo en el formulario HTML
+            responsable_entrega_id = request.POST.get('responsable_entrega')  
             observaciones_cosa = request.POST.get('descripcion')
             
-            #elemento_entrega_id = ElementoConsumible.objects.filter(id = elemento_entrega_id)
-            #responsable_entrega_id = Usuario.objects.filter(id = responsable_entrega_id)
-            
-            print("*******************************************************")
-            #print(responsable_entrega_id)
-            print("*********************************************************")
             variable = ElementoConsumible.objects.get(id = elemento_entrega_id)
-            print(variable.cantidad_total)
             variable_suma = variable.cantidad_total
-            print(variable_suma)
+
             
-            try:
-                elemento_entrega_id = ElementoConsumible.objects.filter(id = elemento_entrega_id)[:1].get()
-                responsable_entrega_id = Usuario.objects.filter(id=responsable_entrega_id)[:1].get()
+            
+            elemento_entrega_id = ElementoConsumible.objects.filter(id = elemento_entrega_id)[:1].get()
+            responsable_entrega_id = Usuario.objects.filter(id=responsable_entrega_id)[:1].get()
                 
-            except ElementoConsumible.DoesNotExist:
-                return HttpResponse("Error: Elemento de entrega no válido")
-            except Usuario.DoesNotExist:
-                return HttpResponse("Error: Responsable de entrega no válido")
-            
-            
-
-
             if int(cantidad_entregada) > variable_suma:
-                print("Error: La cantidad entregada excede la cantidad total en stock")
-                variable_suma -= cantidad_entregada
-                print("Hola Wenas", variable_suma)
-                return HttpResponse("Error: La cantidad entregada excede la cantidad total en stock")
+                messages.success(request, '¡La acción se realizó con éxito!')
+                return redirect ("list_entregas")
 
-            # Establecer la fecha de entrega en el momento actual
+                    
+
+
             
             fecha_entrega_consumible = timezone.now()
-            
-            
-            
             variable_suma -= cantidad_entregada
             variable.cantidad_total = variable_suma
             variable.save()
             
-            print(variable_suma)
-            print(variable.cantidad_total)
-            
-            
-            
-            
             guardar = entrega(elemento_entrega = elemento_entrega_id, fecha_Entrega = fecha_entrega_consumible, cantidad = cantidad_entregada,  responsable_entrega = responsable_entrega_id, observaciones = observaciones_cosa)
             guardar.save()
             
-            
-            #elemento_entrega.cantidad_total -= int(cantidad_entregada)
-            
-            #print(elemento_entrega_id)
-            
-            
-            
-            
-            '''entrega_nueva = form.save(commit=False)
-            entrega_nueva.elemento_entrega = elemento_entrega
-            entrega_nueva.responsable_entrega = responsable_entrega
-            
-
-            
-            elemento_entrega.save()
-            entrega_nueva.save()'''
             return redirect('list_entregas')
         else:
             print("Error en el formulario:", form.errors)  # Imprimir errores de validación del formulario
@@ -341,6 +300,13 @@ def crear_entrega(request):
     usuarios = Usuario.objects.all()
     data = {'elementos_consumibles': elementos_consumibles, 'entregas': entregas, 'usuarios': usuarios, 'form': form}
     return render(request, 'senaback/index_entregas.html', data)
+
+
+
+
+
+
+
 # # Usuarios
 # @login_required
 # def crear_entrega(request):
