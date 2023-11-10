@@ -34,6 +34,7 @@ const listEntregas = async () => {
         const response = await fetch("http://127.0.0.1:8000/senaback/getlist_entregas/");
         const data = await response.json();        
         let content = ``;
+        
         data.entregas.forEach((entrega, index) => {                        
             
             content += `
@@ -43,9 +44,8 @@ const listEntregas = async () => {
                     <td>${entrega.fecha_Entrega}</td>
                     <td>${entrega.cantidad}</td>
                     <td>${entrega.responsable_entrega_id}</td>                    
-                    <td>${entrega.observaciones}</td>                    
-                    <td>
-                        <!-- <button class='btn btn-sm btn-primary'><i class='fa-solid fa-pencil'></i></button>                         -->
+                    <td>${entrega.observaciones}</td>                                        
+                    <td><a href='/edicion_elemento_devolutivo/${entrega.id}/' class="btn btn-info edit-button" data-id="${entrega.id}">Editar</a></td>
                     </td>
                 </tr>`;
         });

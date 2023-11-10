@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http.response import JsonResponse, HttpResponse
 from .forms import * 
-from .models import * 
+from .models import prestamos
+from .models import Usuario
 from django.db.models import Q
 from django.utils import timezone
 from django.forms import ValidationError
@@ -245,20 +246,17 @@ def crear_entrega(request):
             for campos in datos:
                 if campos == None or  '':
                     return False
-            return True
-            
+            return True            
 
         cantidad_entregada = request.POST.get('cantidad')
         elemento_entrega_id = request.POST.get('elemento_entrega')
         responsable_entrega_id = request.POST.get('responsable_entrega')
-            
-        
+                    
         evaluacion = [
             cantidad_entregada,
             elemento_entrega_id,
             responsable_entrega_id,
-        ]
-        
+        ]        
         if evaluar(evaluacion):
             cantidad_entregada = int(request.POST.get('cantidad'))
             elemento_entrega_id = request.POST.get('elemento_entrega')
@@ -266,9 +264,7 @@ def crear_entrega(request):
             observaciones_cosa = request.POST.get('descripcion')
             
             variable = ElementoConsumible.objects.get(id = elemento_entrega_id)
-            variable_suma = variable.cantidad_total
-
-            
+            variable_suma = variable.cantidad_total            
             
             elemento_entrega_id = ElementoConsumible.objects.filter(id = elemento_entrega_id)[:1].get()
             responsable_entrega_id = Usuario.objects.filter(id=responsable_entrega_id)[:1].get()
@@ -276,10 +272,6 @@ def crear_entrega(request):
             if int(cantidad_entregada) > variable_suma:
                 messages.success(request, '¡La acción se realizó con éxito!')
                 return redirect ("list_entregas")
-
-                    
-
-
             
             fecha_entrega_consumible = timezone.now()
             variable_suma -= cantidad_entregada
@@ -322,19 +314,73 @@ def crear_entrega(request):
     # return render(request, 'senaback/index_entregas.html', {'elementos_consumibles': elementos_consumibles, 'usuarios': usuarios})
 
 @login_required
-def get_list_prestamos():
-    prestamos_data = list(prestamos.objects.values())
-    data = {'prestamos': prestamos_data}
+def get_list_prestamos(request):
+    prestamo = list(prestamos.objects.values())
+    data = {'prestamos': prestamo}
     return JsonResponse(data)
 
 @login_required
 def list_prestamos(request):
-    prestamos_data = prestamos.objects.all()
-    data = {'prestamos': prestamos_data}
+    prestamo = prestamos.objects.all()
+    elementos_devolutivos = ElementoDevolutivo.objects.all()
+    usuarios = Usuario.objects.all()
+    data = {'elementos_devolutivos':elementos_devolutivos , 'prestamos':prestamo,'usuarios': usuarios }
     return render(request, 'senaback/index_prestamo.html', data)
 
 @login_required
 def crear_prestamo(request):
+    if request.method == 'POST':
+        
+        def evaluar(datos):
+            for campos in datos:
+                if campos == None or  '':
+                    return False
+            return True            
+        
+        elemento_entrega_id = request.POST.get('elemento_entrega')
+        responsable_entrega_id = request.POST.get('responsable_entrega')
+                    
+        evaluacion = [
+            cantidad_entregada,
+            elemento_entrega_id,
+            responsable_entrega_id,
+        ]        
+        if evaluar(evaluacion):
+            cantidad_entregada = int(request.POST.get('cantidad'))
+            elemento_entrega_id = request.POST.get('elemento_entrega')
+            responsable_entrega_id = request.POST.get('responsable_entrega')  
+            observaciones_cosa = request.POST.get('descripcion')
+            
+            variable = ElementoConsumible.objects.get(id = elemento_entrega_id)
+            variable_suma = variable.cantidad_total            
+            
+            elemento_entrega_id = ElementoConsumible.objects.filter(id = elemento_entrega_id)[:1].get()
+            responsable_entrega_id = Usuario.objects.filter(id=responsable_entrega_id)[:1].get()
+                
+            if int(cantidad_entregada) > variable_suma:
+                messages.success(request, '¡La cantidad excede el stock disponible!')
+                return redirect ("list_prestamos")
+            
+            fecha_entrega_consumible = timezone.now()
+            variable_suma -= cantidad_entregada
+            variable.cantidad_total = variable_suma
+            variable.save()
+            
+            guardar = entrega(elemento_entrega = elemento_entrega_id, fecha_Entrega = fecha_entrega_consumible, cantidad = cantidad_entregada,  responsable_entrega = responsable_entrega_id, observaciones = observaciones_cosa)
+            guardar.save()
+            
+            return redirect('list_entregas')
+        else:
+            print("Error en el formulario:", form.errors)  # Imprimir errores de validación del formulario
+    else:
+        form = EntregaForm()
+
+    prestamos = prestamos.objects.all()
     elementos_devolutivos = ElementoDevolutivo.objects.all()
     usuarios = Usuario.objects.all()
-    return render(request, 'senaback/crear_prestamo.html', {'elementos_devolutivos': elementos_devolutivos, 'usuarios': usuarios})
+    data = {'elementos_devolutivos': elementos_devolutivos, 'prestamos': prestamos, 'usuarios': usuarios, 'form': form}
+    return render(request, 'senaback/index_prestamo.html', data)
+
+
+
+

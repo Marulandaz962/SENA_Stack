@@ -147,6 +147,9 @@ section {
     border: 2px solid #39a900; 
 
 }  
+.modal-content select {
+    width: 55%; /* Todos los inputs tendrán el mismo ancho del 100% */
+}  
 
 .modal-content input {
 width: 50%; /* Todos los inputs tendrán el mismo ancho del 100% */
@@ -168,7 +171,7 @@ height: 21px;
 
 
 .btn-no-guardar{
-    background-color: red/* Color de fondo */
+    background-color: red;/* Color de fondo */
     color: white; /* Color del texto */
     border: none; /* Sin borde */
     padding: 10px 20px; /* Espaciado interno */

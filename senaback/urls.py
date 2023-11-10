@@ -32,6 +32,7 @@ urlpatterns = [
     path('getlist_prestamos/', views.get_list_prestamos, name="getlist_prestamos"),
     path('list_prestamos/', views.list_prestamos, name="list_prestamos"),
     path('crear_prestamo/', views.crear_prestamo, name='crear_prestamo'),
+    
         
     path('usuario/', views.usuario, name="usuario"),
     path('editar_usuario/', views.editar_usuario, name="editar_usuario"),
